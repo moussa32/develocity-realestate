@@ -1,0 +1,205 @@
+.wholePage{
+    display: flex;
+    justify-content: space-between;
+    padding: 64px 0 30px;
+    
+}
+.filterSection{
+    border-radius: 10px;
+    padding: 24px 18px 170px;
+    background-color: rgba(247, 251, 255, 0.35);
+    border:1px solid rgba(0, 125, 206, 0.25);
+    width: 380px;
+}
+.filterSection h1{
+    font-size: 24px;
+    color: #007DCE;
+    margin: 0;
+}
+.filterSection select{
+    width: 348px;
+    height: 64px;
+    border-radius: 10px;
+    border:1px solid #D6D6D6;
+    outline: none;
+    padding: 0 25px;
+    background-color: rgba(247, 251, 255, 0.35);
+    color: rgba(152, 152, 152, 0.5);
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+.select{
+    position: relative;
+}
+.selectIcon{
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    color: #989898;
+    width: 30px;
+    height: 25px;
+    padding-right: 10px;
+}
+.select input{
+    width: 348px;
+    height: 64px;
+    border-radius: 10px;
+    border:1px solid #D6D6D6;
+    outline: none;
+    padding: 0 25px;
+    background-color: rgba(247, 251, 255, 0.35);
+    color: rgba(152, 152, 152, 0.5);
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+.counterSection{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.counterSection input{
+    height: 64px;
+    border-radius: 10px;
+    border:1px solid #D6D6D6;
+    outline: none;
+    padding: 0 20px;
+    background-color: rgba(247, 251, 255, 0.35);
+    color: rgba(152, 152, 152, 0.5);
+    font-size: 24px;
+    margin-bottom: 24px;
+    width: 49%;
+}
+.filterSection h2{
+    font-size: 24px;
+    color: #232F3E;
+}
+.checkBlock{
+    display: flex;
+    align-items: center;
+}
+.checkBlock label{
+    font-size: 24px;
+    color: rgba(35, 47, 62, 0.74);
+    margin-left: 10px;
+}
+.checkBlock input{
+    width: 26px;
+    height: 26px;
+    
+}
+.blocksSection{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.block{
+    padding: 0;
+}
+.cardText{
+    padding: 20px 24px 30px;
+}
+.text1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.text1 h6{
+    color: #007DCE;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0;
+    padding: 0;
+}
+.offer{
+    color: #007DCE;
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 86px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(0, 125, 206, 0.15);
+    text-transform: capitalize;
+}
+.cardText h1{
+    font-size: 24px;
+    font-weight: 400;
+    color:  rgba(30, 30, 30, 0.66);
+    margin: 12px 0;
+    padding: 0;
+    text-transform: capitalize;
+}
+.price{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 19px;
+}
+.price span{
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.old{
+    color: rgba(30, 30, 30, 0.26);
+    text-decoration: line-through;
+    margin-right: 12px;
+}
+.new{
+    color: #007DCE;
+}
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+}
+.details li{
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-bottom: 21px;
+    width: 100%;
+}
+.details li:last-child{
+    margin-bottom: 0;
+}
+.detailsTitle{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.detailsTitle li{
+    color: rgba(30, 30, 30, 0.66);
+}
+.icon{
+    margin-right: 12px;
+    font-size: 18px;
+    color: rgba(30, 30, 30, 0.5);;
+}
+.detailsInfo{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.detailsInfo li{
+    color: #8A8787;
+}
+.detailsBtn{
+    width: 100%;
+    height: 64px;
+    border-radius: 10px;
+    background-color: #007DCE;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    border:0;
+    outline: none;
+}

@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './fonts/Roboto/Roboto-Regular.ttf';
+import './fonts/Roboto/Roboto-Medium.ttf';
+import './fonts/Roboto/Roboto-Bold.ttf';
+import './fonts/Roboto/Roboto-Black.ttf';
+import './fonts/Roboto/Roboto-Light.ttf';
+import { Provider } from 'react-redux'
+import {store} from '../src/pages/store/store'
+
+
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>
 );
 

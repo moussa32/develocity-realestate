@@ -1,0 +1,121 @@
+.footer{
+    background-color: #030718;
+    padding: 64px 0 76px;
+    border-bottom: 1px solid #fff;
+  
+}
+.footerContent{
+  
+    display: flex;
+    justify-content: space-between;
+   
+}
+.footerParag{
+    color: #fff;
+    font-size: 20px;
+    width: 210px;
+    margin-top: 36px;
+}
+.social{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 21px;
+    list-style: none;
+    padding: 0;
+}
+.social li a{
+    color: #fff;
+    width: 23px;
+    height: 23px;
+    
+}
+.social li{
+    margin-right: 20px;
+}
+.social li:last-child{
+    margin-right: 0;
+}
+.copy{
+    padding: 29px 0 25px;
+    background-color: #030718;
+}
+.copy span{
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footerBlock2 h1{
+    color: #fff;
+    text-transform: capitalize;
+    font-weight: 600px;
+    font-size: 24px;
+    margin:0;
+    padding: 0;
+}
+.footerLinks{
+    list-style: none;
+    margin: 30px 0 0;
+    padding: 0;
+}
+.footerLink{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: capitalize;
+    text-decoration: none;
+    transition: 0.5s;
+}
+.footerLink:hover{
+    color: #3382C3;
+}
+.footerLink2{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: capitalize;
+   
+}
+
+
+
+
+
+/* responsive */
+@media only screen and (max-width: 991px) {
+    .footerContent{
+        flex-wrap: wrap;
+    }
+    .footerBlock{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+    }
+    .footerParag{
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+    .footer{
+        padding: 40px 0;
+    }
+    .social{
+        margin-top: 5px;
+    }
+    .footerBlock2 h1{
+        font-size: 18px;
+    }
+    .footerLink{
+        font-size: 15px;
+    }
+    .footerLink2{
+        font-size: 15px;
+    }
+    .copy span{
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,152 @@
+.testimonialsSection{
+    background-color: #F7FBFF;
+    padding: 89px 0;
+}
+.title{
+    font-size: 39px;
+    font-weight: 500;
+    color: #162037;
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0 0 64px;
+    position: relative;
+}
+.title:before {
+    content: "";
+    display: block;
+    width: 165px;
+    height: 1px;
+    background: #162037;
+    left: 25%;
+    top: 50%;
+    position: absolute;
+  }
+  .title:after {
+    content: "";
+    display: block;
+    width: 165px;
+    height: 1px;
+    background: #162037;
+    right: 25%;
+    top: 50%;
+    position: absolute;
+  }
+  .card{
+    background-color: #fff;
+    padding: 32px 41px 52px;
+    width: 422px;
+    border-radius: 11px;
+  }
+  .personal{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 79px;
+   
+  }
+  .pic{
+    border-radius: 50%;
+    width: 67px;
+    height: 67px;
+  }
+  .name h2{
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    text-transform: capitalize;
+    margin: 0 0 13px;
+  }
+  .name p{
+    font-size: 20px;
+    font-weight: 400;
+    color: #6C6C6C;
+    margin: 0;
+    text-transform: capitalize;
+  }
+  .rate{
+    display: flex;
+    
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .rate li{
+    font-size: 15px;
+    color: #F8D027;
+  }
+  .text{
+    padding: 9px 13px;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 11px;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    width: 100%;
+  }
+  .question{
+    font-size: 64px;
+    font-weight: 600;
+    color: #162037;
+    text-align: center;
+    margin: 56px auto 67px;
+    text-transform: capitalize;
+    width: 910px;
+  }
+  .startBtn{
+    width: 240px;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:1px solid #007DCE;
+    background-color: #fff;
+    border-radius: 10px;
+    color: #007DCE;
+    text-transform: capitalize;
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0 auto;
+    outline: none;
+  }
+
+  
+/* responsive */
+@media only screen and (max-width: 991px) {
+    .question{
+        width: 100%;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    .testimonialsSection{
+        padding: 40px 0;
+    }
+    .title{
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
+    .title:before{
+        left: 10%;
+        width: 50px;
+    }
+    .title:after{
+        right: 10%;
+        width: 50px;
+    }
+    .personal{
+        justify-content: flex-start;
+        margin-bottom: 30px;
+    }
+    .name{
+        margin:0 15px
+    }
+    .text{
+        font-size: 15px;
+    }
+    .card{
+        padding: 30px;
+    }
+    .startBtn{
+        height: 40px;
+        font-size: 18px;
+    }
+}

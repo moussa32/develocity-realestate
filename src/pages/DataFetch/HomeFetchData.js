@@ -1,60 +1,31 @@
-import axios from 'axios';
-import {createSlice , createAsyncThunk} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { globalInstance } from "./constat";
 
-export const fetchHome =  createAsyncThunk('home/fetchScore',
-async ()=>{
+export const fetchHome = createAsyncThunk("home/fetchScore", async () => {
+  const response = await globalInstance.get("home");
 
-    const options = {
-        headers: { 
-            'app_api_key': 'wqrzIJIu5MrealstatedFYewn!%^&*Xu0@~dkqwlfYWSMqW6VQJQJjsOfMoCsD5P', 
-          }
-        }
-        
-        
-      
-   
-    const response = await axios.get("https://akarat.develocity.app/api/home", options )
-   
-    return response.data
-    
-   
+  return response.data;
+});
 
-      
-    });
-   
-
-
-
-const HomeApi =  createSlice({
-    name: " home",
-    reducers:{
-       
+const HomeApi = createSlice({
+  name: "home",
+  reducers: {},
+  initialState: {
+    data: [],
+    status: null,
+  },
+  extraReducers: {
+    [fetchHome.fulfilled]: (state, { payload }) => {
+      state.data = payload;
+      state.status = "success";
     },
-    initialState :{
-        data:[],
-        status : null
-
+    [fetchHome.pending]: (state) => {
+      state.status = "loading";
     },
-    extraReducers:{
-        [fetchHome.fulfilled] : (state,{payload}) =>{
-            state.data = payload;
-            state.status = "success";
-
-        },
-        [fetchHome.pending] : (state) =>{
-            state.status = "loading";
-
-        },
-        [fetchHome.rejected] : (state) =>{
-            state.status = "failed";
-
-        }
-
-    }
-})
-
-
-
-
+    [fetchHome.rejected]: (state) => {
+      state.status = "failed";
+    },
+  },
+});
 
 export default HomeApi.reducer;

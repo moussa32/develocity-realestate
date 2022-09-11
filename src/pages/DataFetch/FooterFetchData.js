@@ -1,60 +1,32 @@
-import axios from 'axios';
-import {createSlice , createAsyncThunk} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { globalInstance } from "./constat";
 
-export const fetchFooter =  createAsyncThunk('footer/fetchScore',
-async ()=>{
+export const fetchFooter = createAsyncThunk("footer/fetchScore", async () => {
+  const controller = new AbortController();
+  const response = await globalInstance.get("setting", { signal: controller.signal });
+  controller.abort();
+  return response.data;
+});
 
-    const options = {
-        headers: { 
-            'app_api_key': 'wqrzIJIu5MrealstatedFYewn!%^&*Xu0@~dkqwlfYWSMqW6VQJQJjsOfMoCsD5P', 
-          }
-        }
-        
-        
-      
-   
-    const response = await axios.get("https://akarat.develocity.app/api/setting", options )
-   
-    return response.data
-    
-   
-
-      
-    });
-   
-
-
-
-const FooterApi =  createSlice({
-    name: " home",
-    reducers:{
-       
+const FooterApi = createSlice({
+  name: " home",
+  reducers: {},
+  initialState: {
+    data: [],
+    status: null,
+  },
+  extraReducers: {
+    [fetchFooter.fulfilled]: (state, { payload }) => {
+      state.data = payload;
+      state.status = "success";
     },
-    initialState :{
-        data:[],
-        status : null
-
+    [fetchFooter.pending]: (state) => {
+      state.status = "loading";
     },
-    extraReducers:{
-        [fetchFooter.fulfilled] : (state,{payload}) =>{
-            state.data = payload;
-            state.status = "success";
-
-        },
-        [fetchFooter.pending] : (state) =>{
-            state.status = "loading";
-
-        },
-        [fetchFooter.rejected] : (state) =>{
-            state.status = "failed";
-
-        }
-
-    }
-})
-
-
-
-
+    [fetchFooter.rejected]: (state) => {
+      state.status = "failed";
+    },
+  },
+});
 
 export default FooterApi.reducer;

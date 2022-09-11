@@ -21,9 +21,10 @@ const Hero = () => {
             as={Link}
             to="/sell"
             variant="primary"
-            className={`${styles.sellButton} text-white fs-md text-uppercase d-flex align-items-center justify-content-center mx-auto`}
+            className={`${styles.sellButton} text-white fs-md text-uppercase d-flex align-items-center justify-content-center mx-auto fw-semibold`}
           >
-            <FaPlus className="me-2" /> sell
+            <FaPlus className="me-2" />
+            sell
           </Button>
         </div>
       </div>

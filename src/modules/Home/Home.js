@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Banner from "../../components/Banner/Banner";
 import Choose from "../../components/Choose/Choose";
-import DealsCarousel from "../../components/DealsCarousel/DealsCarousel";
+// import DealsCarousel from "../../components/DealsCarousel/DealsCarousel";
+import DealsCarousel from "./DealsCarousel";
 import Testimonials from "../../components/Testimonials/Testimonials";
 import About from "../../pages/About";
 import { fetchHome } from "../../pages/DataFetch/HomeFetchData";

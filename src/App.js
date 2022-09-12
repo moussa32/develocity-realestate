@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy } from "react";
 import Home from "./modules/Home/Home";
-const Navbar = lazy(() => import("./common/Navbar/Navbar"));
+// const Navbar = lazy(() => import("./common/Navbar/Navbar"));
 const Properties = lazy(() => import("./pages/Properties"));
 const About = lazy(() => import("./pages/About"));
 const Deals = lazy(() => import("./pages/Deals"));
@@ -11,13 +11,13 @@ const View = lazy(() => import("./pages/View"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Details = lazy(() => import("./pages/Details"));
 const Welcome = lazy(() => import("./pages/Welcome"));
-const Footer = lazy(() => import("./common/Footer/Footer"));
+// const Footer = lazy(() => import("./common/Footer/Footer"));
 
 const App = () => {
   return (
     <Router>
       <>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
@@ -49,7 +49,7 @@ const App = () => {
           <Route path="/welcome" element={<Welcome />} />
         </Routes>
       </>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };

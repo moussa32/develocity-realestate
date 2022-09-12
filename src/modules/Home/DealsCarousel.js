@@ -3,14 +3,12 @@ import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import Carousel from "react-multi-carousel";
+import PropertyCard from "./PropertyCard";
 import TabButton from "./TabButton";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchCategory } from "../../pages/DataFetch/CategoryFetchData";
-
-import { React } from "react";
-import PropertyCard from "./PropertyCard";
+import { fetchCategory } from "../../redux/features/CategorySlice";
 
 const responsive = {
   desktop: {

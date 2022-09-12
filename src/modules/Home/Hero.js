@@ -10,7 +10,7 @@ const Hero = () => {
   return (
     <section className={styles.bannerBlock}>
       <div className={`position-absolute w-100 h-100 ${styles.bannerCover}`} />
-      <img src={Home.data?.banner?.image && Home.data.banner.image} alt="banner image" />
+      <img src={Home.data?.banner?.image && Home.data.banner.image} alt="banner" />
       <div className="position-absolute top-50 start-50 translate-middle w-100">
         <div className="d-flex flex-column justify-content-center aligen-items-center text-center">
           <p className={`text-white fs-2xl text-capitalize mb-0 ${styles.heroP}`}>

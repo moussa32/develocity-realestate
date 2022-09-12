@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "../src/pages/store/store";
+import store from "./redux/store";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";

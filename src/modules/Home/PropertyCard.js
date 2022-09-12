@@ -12,7 +12,6 @@ import { RiKeyFill } from "react-icons/ri";
 const PropertyCard = ({ info }) => {
   const {
     id,
-    category,
     property,
     is_hot_deal,
     title,

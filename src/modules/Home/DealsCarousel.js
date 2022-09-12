@@ -59,8 +59,12 @@ const DealsCarousel = () => {
 
   const handleSelectTab = (selectedTabKey) => {
     setActiveTab(selectedTabKey);
-    const selectedCategoryObject = categories.find((category) => category.name === selectedTabKey);
-    dispatch(fetchCategory(selectedCategoryObject.id));
+    if (selectedTabKey !== "view-all") {
+      const selectedCategoryObject = categories.find((category) => category.name === selectedTabKey);
+      dispatch(fetchCategory(selectedCategoryObject.id));
+    } else {
+      dispatch(fetchCategory());
+    }
   };
 
   return (
@@ -80,19 +84,7 @@ const DealsCarousel = () => {
               {categories?.slice(2, 3)?.map(({ id, name }) => (
                 <TabButton key={`${id}${name}`} activeTab={activeTab} name={name} />
               ))}
-              {/* <Nav.Item
-                className={`border-bottom border-secondary border-4 ${activeTav === "view all" && "border-primary"}`}
-              >
-                <Nav.Link
-                  as={"button"}
-                  eventKey="view all"
-                  className={`text-muted text-capitalize fs-lg px-5 ${styles.dealsTabButton} ${
-                    activeTav === "view all" && "bg-transparent"
-                  }`}
-                >
-                  view all
-                </Nav.Link>
-              </Nav.Item> */}
+              <TabButton activeTab={activeTab} customEventKey={"view-all"} name={"view all"} />
             </Col>
           </Row>
         </Nav>

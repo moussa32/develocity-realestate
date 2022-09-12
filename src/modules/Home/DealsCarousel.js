@@ -4,19 +4,13 @@ import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import Carousel from "react-multi-carousel";
 import TabButton from "./TabButton";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategory } from "../../pages/DataFetch/CategoryFetchData";
-import { IoLocationSharp } from "react-icons/io5";
-import { MdHomeWork } from "react-icons/md";
-import { IoBedSharp } from "react-icons/io5";
-import { BiArea } from "react-icons/bi";
-import { GiBathtub } from "react-icons/gi";
-import styles from "./DealsCarousel.module.css";
+
 import { React } from "react";
+import PropertyCard from "./PropertyCard";
 
 const responsive = {
   desktop: {
@@ -41,6 +35,7 @@ const CustomDot = ({ onClick, active }) => {
     <li
       className={`${active ? "bg-primary " : "bg-primary bg-opacity-25"} rounded-circle mx-1`}
       style={{ width: 16, height: 16 }}
+      role="button"
       onClick={() => onClick()}
     ></li>
   );
@@ -48,14 +43,20 @@ const CustomDot = ({ onClick, active }) => {
 
 const DealsCarousel = () => {
   const [activeTab, setActiveTab] = useState("Home");
+  const [currentDeals, setCurrentDeals] = useState([]);
   const categories = useSelector((state) => state.home.data?.data?.categories);
-  const categoryStatus = useSelector((state) => state.category.status);
   const categoryItems = useSelector((state) => state.category.data.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCategory());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (categoryItems) {
+      setCurrentDeals(categoryItems);
+    }
+  }, [categoryItems]);
 
   const handleSelectTab = (selectedTabKey) => {
     setActiveTab(selectedTabKey);
@@ -90,7 +91,7 @@ const DealsCarousel = () => {
         </Nav>
         <Tab.Content>
           <Tab.Pane eventKey={activeTab}>
-            {categoryStatus === "success" && (
+            {currentDeals.length !== 0 && (
               <Carousel
                 swipeable={false}
                 draggable={false}
@@ -103,67 +104,12 @@ const DealsCarousel = () => {
                 keyBoardControl={true}
                 customTransition="all .5"
                 transitionDuration={500}
-                containerClass="carousel-container"
                 removeArrowOnDeviceType={["desktop", "tablet", "mobile"]}
-                dotListClass="custom-dot-list-style"
-                itemClass="carousel-item-padding-40-px"
-                customDot={<CustomDot items={categoryItems} />}
+                customDot={<CustomDot items={currentDeals} />}
               >
-                {categoryItems.map(
-                  ({ category, property, is_hot_deal, title, price, location, type, bedrooms, floor, bathrooms }) => (
-                    <div className={styles.card}>
-                      <img src={category.image} className={styles.catImg} alt="home picture" />
-                      <div className={styles.cardText}>
-                        <div className={styles.text1}>
-                          <h6>for {property}</h6>
-                          <span className={is_hot_deal == 1 ? styles.offer : styles.hide}>hot deals</span>
-                        </div>
-                        <h1>{title}</h1>
-                        <div className={styles.price}>
-                          {/*<span className={styles.old}>$1000</span>*/}
-                          <span className={styles.new}>{price}</span>
-                        </div>
-                        <div className={styles.details}>
-                          <ul className={styles.detailsTitle}>
-                            <li className={location ? null : styles.hide}>
-                              <IoLocationSharp className={styles.icon} />
-                              location:
-                            </li>
-                            <li className={type ? null : styles.hide}>
-                              <MdHomeWork className={styles.icon} />
-                              type:
-                            </li>
-                            <li className={bedrooms ? null : styles.hide}>
-                              <IoBedSharp className={styles.icon} />
-                              bedrooms:
-                            </li>
-                            <li className={floor ? null : styles.hide}>
-                              <BiArea className={styles.icon} />
-                              floor area:
-                            </li>
-                            <li className={bathrooms ? null : styles.hide}>
-                              <GiBathtub className={styles.icon} />
-                              bathroom:
-                            </li>
-                          </ul>
-                          <ul className={styles.detailsInfo}>
-                            <li>{location}</li>
-                            <li>{type}</li>
-                            <li>{bedrooms}</li>
-                            <li>{floor}</li>
-                            <li>{bathrooms}</li>
-                          </ul>
-                        </div>
-                        {/* {sellEachAdv?.data?.data &&
-                        sellEachAdv?.data?.data.map((ew) => (
-                          <Link to={`/view/${ew.id}`} className={ew.id == ex.id ? styles.detailsBtn : styles.hide}>
-                            view details
-                          </Link>
-                        ))} */}
-                      </div>
-                    </div>
-                  )
-                )}
+                {currentDeals.map((propertyInfo) => (
+                  <PropertyCard info={propertyInfo} key={`${propertyInfo.id}${propertyInfo.title}`} />
+                ))}
               </Carousel>
             )}
           </Tab.Pane>

@@ -6,6 +6,20 @@ $theme-colors: (
   "primary": #007dce,
 );
 
+$utilities: (
+  "bg-opacity": (
+    css-var: true,
+    class: bg-opacity,
+    values: (
+      15: 0.15,
+      25: 0.25,
+      50: 0.5,
+      75: 0.75,
+      100: 1,
+    ),
+  ),
+);
+
 /*
 64 => 5xl
 48 => 4xl
@@ -28,7 +42,6 @@ $font-size-xl: $font-size-base * 1.875;
 $font-size-lg: $font-size-base * 1.75;
 $font-size-md: $font-size-base * 1.5;
 $font-size-sm: $font-size-base * 1.25;
-$font-size-sm: $font-size-base * 0.875;
 $font-size-xs: $font-size-base;
 
 $font-sizes: (

@@ -3,10 +3,11 @@ import { useDispatch } from "react-redux";
 import Choose from "../../components/Choose/Choose";
 import DealsCarousel from "./DealsCarousel";
 import Testimonials from "../../components/Testimonials/Testimonials";
-import About from "../../pages/About";
+import oldAbout from "../../pages/About";
 import { fetchHome } from "../../redux/features/HomeSlice";
 import Hero from "./Hero";
 import HomeAdvertisement from "./HomeAdvertisement";
+import About from "./About";
 import Container from "react-bootstrap/Container";
 
 const Home = () => {
@@ -17,14 +18,23 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <Container>
-      <HomeAdvertisement />
-      <Hero />
-      <DealsCarousel />
+    <>
+      <Container>
+        <HomeAdvertisement />
+      </Container>
+      <Container>
+        <Hero />
+      </Container>
+      <Container>
+        <DealsCarousel />
+      </Container>
+
       <About />
-      <Choose />
+      <Container>
+        <Choose />
+      </Container>
       <Testimonials />
-    </Container>
+    </>
   );
 };
 

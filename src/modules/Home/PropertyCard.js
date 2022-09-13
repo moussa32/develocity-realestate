@@ -98,7 +98,10 @@ const PropertyCard = ({ info }) => {
             {id && <li className={`${styles.propertyTextColor} text-capitalize fs-xs text-end`}>{id}</li>}
           </ul>
         </div>
-        <Link to={`/view/${id}`} className={`${styles.detailsBtn} text-decoration-none`}>
+        <Link
+          to={`/view/${id}`}
+          className={`${styles.detailsBtn} text-decoration-none text-white bg-primary fw-normal`}
+        >
           view details
         </Link>
       </div>

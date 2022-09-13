@@ -1,0 +1,39 @@
+@import "./variables";
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+$theme-colors: (
+  "primary": $primary-color,
+);
+
+$utilities: (
+  "bg-opacity": (
+    css-var: true,
+    class: bg-opacity,
+    values: (
+      5: 0.05,
+      10: 0.1,
+      15: 0.15,
+      25: 0.25,
+      50: 0.5,
+      75: 0.75,
+      100: 1,
+    ),
+  ),
+);
+
+$font-sizes: (
+  5xl: $font-size-5xl,
+  4xl: $font-size-4xl,
+  3xl: $font-size-3xl,
+  2xl: $font-size-2xl,
+  xl: $font-size-xl,
+  lg: $font-size-lg,
+  md: $font-size-md,
+  sm: $font-size-sm,
+  xs: $font-size-xs,
+);
+
+@import "~bootstrap/scss/bootstrap";

@@ -5,7 +5,7 @@ import { MdMail } from "react-icons/md";
 import { MdLock } from "react-icons/md";
 import { FaFacebookF } from "react-icons/fa";
 import { BsTelephoneFill } from "react-icons/bs";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/images/logo.png";
 import google from "../../assets/google.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";

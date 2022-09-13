@@ -36,20 +36,20 @@ const About = () => {
               </div>
             </div>
           </Col>
-          <Col lg={5} md={12} sm={12} className="d-flex flex-column mt-5 align-items-md-start align-items-sm-center">
+          <Col lg={5} md={12} sm={12} className="d-flex flex-column mt-5 align-items-md-start align-items-center">
             <h3 className="fs-4xl fw-semibold text-capitalize">we provide the best</h3>
             <h3 className="fs-4xl fw-semibold text-capitalize">
               <span className="text-primary">porperty</span> for you .
             </h3>
-            <p className="fs-xl">Lorem ipsumLorem ipsumLorem ipsum</p>
-            <p className="fs-xl">Lorem ipsumLorem ipsumLorem ipsum</p>
-            <p className="fs-xl">Lorem ipsumLorem ipsumLorem ipsum</p>
-            <p className="fs-xl">Lorem ipsumLorem ipsumLorem ipsum</p>
+            <p className="fs-xl mb-1 text-muted text-center text-md-start">Lorem ipsumLorem ipsumLorem ipsum</p>
+            <p className="fs-xl mb-1 text-muted text-center text-md-start">Lorem ipsumLorem ipsumLorem ipsum</p>
+            <p className="fs-xl mb-1 text-muted text-center text-md-start">Lorem ipsumLorem ipsumLorem ipsum</p>
+            <p className="fs-xl mb-4 text-muted text-center text-md-start">Lorem ipsumLorem ipsumLorem ipsum</p>
             <Button
               as={Link}
               variant="primary"
               to="/"
-              className={`text-white ${styles.readMoreButton} fs-md d-flex align-items-center`}
+              className={`text-white ${styles.readMoreButton} fs-md d-flex align-items-center fw-semibold`}
             >
               Read More
             </Button>

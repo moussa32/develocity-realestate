@@ -37,6 +37,7 @@
     "react-scripts": "5.0.1",
     "react-selectable-fast": "^3.4.0",
     "react-upload-gallery": "^0.4.1",
+    "redux-persist": "^6.0.0",
     "sass": "^1.54.9",
     "striptags": "^3.2.0",
     "use-places-autocomplete": "^4.0.0",

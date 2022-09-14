@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy } from "react";
 import Home from "./modules/Home/Home";
 import Navbar from "./shared/components/Navbar/Navbar";
-// const OldNavbar = lazy(() => import("./common/Navbar/Navbar"));
+import "./styles/styles.scss";
 const Properties = lazy(() => import("./pages/Properties"));
 const About = lazy(() => import("./pages/About"));
 const Deals = lazy(() => import("./pages/Deals"));
@@ -18,7 +18,6 @@ const App = () => {
   return (
     <Router>
       <>
-        {/* <OldNavbar /> */}
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

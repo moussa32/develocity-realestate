@@ -1,0 +1,56 @@
+$primary: #007dce;
+
+/*
+64 => 5xl
+48 => 4xl
+40 => 3xl
+32 => 2xl
+30 => xl
+28 => lg
+24 => md
+20 => sm
+16 => xs
+*/
+
+$font-size-base: 1rem;
+$font-size-5xl: $font-size-base * 4;
+$font-size-4xl: $font-size-base * 3;
+$font-size-3xl: $font-size-base * 2.5;
+$font-size-2xl: $font-size-base * 2;
+$font-size-xl: $font-size-base * 1.875;
+$font-size-lg: $font-size-base * 1.75;
+$font-size-md: $font-size-base * 1.5;
+$font-size-sm: $font-size-base * 1.25;
+$font-size-xs: $font-size-base;
+
+$utilities: (
+  "bg-opacity": (
+    css-var: true,
+    class: bg-opacity,
+    values: (
+      5: 0.05,
+      10: 0.1,
+      15: 0.15,
+      25: 0.25,
+      50: 0.5,
+      75: 0.75,
+      100: 1,
+    ),
+  ),
+);
+
+$font-sizes: (
+  5xl: $font-size-5xl,
+  4xl: $font-size-4xl,
+  3xl: $font-size-3xl,
+  2xl: $font-size-2xl,
+  xl: $font-size-xl,
+  lg: $font-size-lg,
+  md: $font-size-md,
+  sm: $font-size-sm,
+  xs: $font-size-xs,
+);
+
+$theme-colors: (
+  "primary": $primary,
+);

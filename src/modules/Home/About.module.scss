@@ -1,18 +1,18 @@
-@import "../../styles/variables";
+@import "../../styles/index";
 
 .heading:before {
   content: "";
   display: block;
   flex: 0.2;
   height: 1px;
-  background: $primary-color;
+  background: $primary;
 }
 .heading:after {
   content: "";
   display: block;
   flex: 0.2;
   height: 1px;
-  background: $primary-color;
+  background: $primary;
 }
 
 .heading {

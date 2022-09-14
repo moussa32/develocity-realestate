@@ -1,0 +1,37 @@
+@import "../../styles/styles.scss";
+
+.heading {
+  span {
+    padding: 0 1.25rem;
+  }
+}
+
+.primaryHeading:before {
+  content: "";
+  display: block;
+  flex: 0.2;
+  height: 1px;
+  background: $primary;
+}
+.primaryHeading:after {
+  content: "";
+  display: block;
+  flex: 0.2;
+  height: 1px;
+  background: $primary;
+}
+
+.blackHeading:before {
+  content: "";
+  display: block;
+  flex: 0.2;
+  height: 1px;
+  background: #162037;
+}
+.blackHeading:after {
+  content: "";
+  display: block;
+  flex: 0.2;
+  height: 1px;
+  background: #162037;
+}

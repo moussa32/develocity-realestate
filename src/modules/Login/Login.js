@@ -4,6 +4,9 @@ import { setCloseModal } from "../../redux/features/ModalSlice";
 import { IoMdLock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { Formik } from "formik";
+import { globalInstance } from "../../api/constants";
+import { setUser } from "../../redux/features/UserSlice";
+import { Link } from "react-router-dom";
 import loginSchema from "../../shared/schemas/LoginSchema";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -11,8 +14,10 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import logo from "../../assets/images/logo.png";
 import styles from "./Login.module.scss";
-import { globalInstance } from "../../api/constants";
-import { setUser } from "../../redux/features/UserSlice";
+import DividerWithText from "../../shared/components/DividerWithText";
+import ThirdPartyButtons from "./ThirdPartyButtons";
+import UseAnimations from "react-useanimations";
+import infinity from "react-useanimations/lib/infinity";
 
 const Login = () => {
   const currentModal = useSelector((state) => state.modal.view);
@@ -27,9 +32,7 @@ const Login = () => {
 
   const handleClose = useCallback(() => {
     dispatch(setCloseModal({ view: "login" }));
-  }, []);
-
-  const handleLogin = () => {};
+  }, [dispatch]);
 
   return (
     <Modal show={(currentModal === "login") & showModalStatus && true} onHide={handleClose}>
@@ -48,19 +51,17 @@ const Login = () => {
           validationSchema={loginSchema}
           initialValues={{ email: "", password: "" }}
           onSubmit={async (values, { setSubmitting, resetForm, validate }) => {
-            // When button submits form and form is in the process of submitting, submit button is disabled
-            console.log(values);
             setSubmitting(true);
 
             const requestLogin = await globalInstance.post("/auth/login", { type: "email", ...values });
             const { data } = requestLogin;
             if (data.code === 200) {
               dispatch(setUser(data.data.user));
-              dispatch(setCloseModal({ view: "login", open: false }));
+              dispatch(setCloseModal({ view: "login" }));
             }
             setSubmitting(false);
           }}
-          validateOnChange={false}
+          validateOnChange={true}
           validateOnBlur={false}
         >
           {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors, isSubmitting }) => (
@@ -89,6 +90,7 @@ const Login = () => {
                     } bg-transparent border-start-0 border-1 shadow-none fs-sm ${styles.formInput}`}
                     aria-describedby="email-input"
                     isInvalid={!!errors.email}
+                    disabled={isSubmitting}
                   />
                   {errors.email && <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>}
                 </InputGroup>
@@ -116,6 +118,7 @@ const Login = () => {
                     } bg-transparent border-start-0 border-1 shadow-none ${styles.formInput} fs-sm`}
                     aria-describedby="password-input"
                     isInvalid={!!errors.password}
+                    disabled={isSubmitting}
                   />
                   {errors.password && <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>}
                 </InputGroup>
@@ -124,17 +127,32 @@ const Login = () => {
                 Forgot password?
               </Button>
               <Button
-                className="text-white w-100 fs-md"
+                className="text-white w-100 fs-md d-flex align-items-center justify-content-center gap-2"
                 variant="primary"
                 type="submit"
                 size="lg"
                 disabled={isSubmitting}
               >
+                {isSubmitting && <UseAnimations animation={infinity} size={40} strokeColor="#fff" autoplay={true} />}
                 Login
               </Button>
             </Form>
           )}
         </Formik>
+        <DividerWithText text="or login with" fontSize="fs-xs" classNames="pt-4" bgVariant="black" />
+        <ThirdPartyButtons />
+        <div className="text-center mt-4 text-capitalize">
+          <p className="mb-1">By continuing, you are accepting</p>
+          <p>
+            <Link className="text-primary text-decoration-none" to="/terms-of-use">
+              real state Terms of use
+            </Link>
+            <span className="text-secondary mx-2">And</span>
+            <Link className="text-primary text-decoration-none" to="/privacy-policy">
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
       </Modal.Body>
     </Modal>
   );

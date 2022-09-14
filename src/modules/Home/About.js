@@ -7,16 +7,13 @@ import secondImage from "../../assets/images/secondOverlapImg.png";
 import { ImPlay3 } from "react-icons/im";
 import styles from "./About.module.scss";
 import { Link } from "react-router-dom";
+import DividerWithText from "../../shared/components/DividerWithText";
 
 const About = () => {
   return (
     <section className="bg-primary bg-opacity-5 py-5">
       <Container>
-        <h2
-          className={`text-capitalize text-center mb-4 ${styles.heading} fs-3xl fw-bold position-relative d-flex align-items-center justify-content-center`}
-        >
-          <span>About us</span>
-        </h2>
+        <DividerWithText text="about us" />
         <Row>
           <Col lg={7} md={12} sm={12}>
             <div className={styles.imageStack}>

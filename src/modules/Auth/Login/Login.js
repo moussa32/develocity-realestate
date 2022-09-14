@@ -1,21 +1,21 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCloseModal } from "../../redux/features/ModalSlice";
+import { setCloseModal } from "../../../redux/features/ModalSlice";
 import { IoMdLock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { Formik } from "formik";
-import { globalInstance } from "../../api/constants";
-import { setUser } from "../../redux/features/UserSlice";
+import { globalInstance } from "../../../api/constants";
+import { setUser } from "../../../redux/features/UserSlice";
 import { Link } from "react-router-dom";
-import loginSchema from "../../shared/schemas/LoginSchema";
+import loginSchema from "../../../shared/schemas/LoginSchema";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import logo from "../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.png";
 import styles from "./Login.module.scss";
-import DividerWithText from "../../shared/components/DividerWithText";
-import ThirdPartyButtons from "./ThirdPartyButtons";
+import DividerWithText from "../../../shared/components/DividerWithText";
+import ThirdPartyButtons from "../ThirdPartyButtons";
 import UseAnimations from "react-useanimations";
 import infinity from "react-useanimations/lib/infinity";
 

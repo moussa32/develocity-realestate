@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import Login from "../../../modules/Login/Login";
+import Login from "../../../modules/Auth/Login/Login";
 import { setShowModal } from "../../../redux/features/ModalSlice";
 import styles from "./NavButtons.module.scss";
 

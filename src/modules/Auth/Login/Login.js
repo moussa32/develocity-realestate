@@ -12,12 +12,12 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import logo from "../../../assets/images/logo.png";
-import styles from "./Login.module.scss";
+import styles from "../Auth.module.scss";
 import DividerWithText from "../../../shared/components/DividerWithText";
 import ThirdPartyButtons from "../ThirdPartyButtons";
 import UseAnimations from "react-useanimations";
 import infinity from "react-useanimations/lib/infinity";
+import ModalHeader from "../ModalHeader";
 
 const Login = () => {
   const currentModal = useSelector((state) => state.modal.view);
@@ -30,37 +30,41 @@ const Login = () => {
     };
   }, []);
 
+  const handleLoginForm = async (data, actions) => {
+    const { setSubmitting, setErrors } = actions;
+    setSubmitting(true);
+    const sendData = await globalInstance.post("/auth/login", { type: "email", ...data });
+    const { data: responseData } = sendData;
+    (responseData.code === 5002 || 5006) && setErrors({ email: responseData.msg });
+    responseData.code === 5004 && setErrors({ password: responseData.msg });
+
+    if (data.code === 200) {
+      dispatch(setUser(data.data.user));
+      dispatch(setCloseModal());
+    }
+  };
+
   const handleClose = useCallback(() => {
-    dispatch(setCloseModal({ view: "login" }));
+    dispatch(setCloseModal());
   }, [dispatch]);
 
   return (
     <Modal show={(currentModal === "login") & showModalStatus && true} onHide={handleClose}>
       <Modal.Body className="px-4">
-        <div className="text-center text-capitalize">
-          <div className="mb-4">
-            <img width={157} height={148} src={logo} alt="logo" />
-          </div>
-          <h2 className="fw-semibold fs-md">welcome to real state</h2>
-          <p className="fs-sm mb-0">the trusted community of</p>
-          <p className="fs-sm">buyers and sellers.</p>
-          <h2 className="text-primary">log in</h2>
-        </div>
-
+        <ModalHeader
+          title="welcome to real state"
+          subTitle="log in"
+          hints={
+            <>
+              <p className="fs-sm mb-0">the trusted community of</p>
+              <p className="fs-sm">buyers and sellers.</p>
+            </>
+          }
+        />
         <Formik
           validationSchema={loginSchema}
           initialValues={{ email: "", password: "" }}
-          onSubmit={async (values, { setSubmitting, resetForm, validate }) => {
-            setSubmitting(true);
-
-            const requestLogin = await globalInstance.post("/auth/login", { type: "email", ...values });
-            const { data } = requestLogin;
-            if (data.code === 200) {
-              dispatch(setUser(data.data.user));
-              dispatch(setCloseModal({ view: "login" }));
-            }
-            setSubmitting(false);
-          }}
+          onSubmit={handleLoginForm}
           validateOnChange={true}
           validateOnBlur={false}
         >

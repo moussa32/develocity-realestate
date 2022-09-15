@@ -1,7 +1,8 @@
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import Login from "../../../modules/Auth/Login/Login";
 import { setShowModal } from "../../../redux/features/ModalSlice";
+import Login from "../../../modules/Auth/Login/Login";
+import Signup from "../../../modules/Auth/Signup/Signup";
 import styles from "./NavButtons.module.scss";
 
 const NavButtons = () => {
@@ -15,10 +16,15 @@ const NavButtons = () => {
       >
         login
       </Button>
-      <Button varinat="primary" className={`${styles.signupButton} text-capitalize fw-semibold fs-md text-white`}>
+      <Button
+        varinat="primary"
+        className={`${styles.signupButton} text-capitalize fw-semibold fs-md text-white`}
+        onClick={() => dispatch(setShowModal({ view: "signup" }))}
+      >
         Sign Up
       </Button>
       <Login />
+      <Signup />
     </section>
   );
 };

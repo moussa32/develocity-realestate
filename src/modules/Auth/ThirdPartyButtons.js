@@ -5,7 +5,7 @@ import styles from "./ThirdPartyButtons.module.scss";
 
 const ThirdPartyButtons = () => {
   return (
-    <div className="d-flex justify-content-center align-items-center mx-auto gap-4">
+    <div className="d-flex justify-content-center align-items-center mx-auto gap-4 mt-4">
       <button className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}>
         <FcGoogle className={`${styles.thirdPartyIcon}`} />
       </button>

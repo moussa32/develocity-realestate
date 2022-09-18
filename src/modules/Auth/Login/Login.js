@@ -12,7 +12,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import styles from "../Auth.module.scss";
 import DividerWithText from "../../../shared/components/DividerWithText";
 import ThirdPartyButtons from "../ThirdPartyButtons";
 import UseAnimations from "react-useanimations";
@@ -28,7 +27,7 @@ const Login = () => {
     return () => {
       dispatch(setCloseModal());
     };
-  }, []);
+  }, [dispatch]);
 
   const handleLoginForm = async (data, actions) => {
     const { setSubmitting, setErrors } = actions;
@@ -76,7 +75,7 @@ const Login = () => {
                     id="basic-addon1"
                     className={`${
                       !!errors.email ? "border-danger" : "border-primary"
-                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start ${styles.formIcon}`}
+                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start formIcon`}
                   >
                     <MdEmail />
                   </InputGroup.Text>
@@ -90,7 +89,7 @@ const Login = () => {
                     type="email"
                     className={`${
                       !!errors.email ? "border-danger" : "border-primary"
-                    } bg-transparent border-start-0 border-1 shadow-none fs-sm ${styles.formInput}`}
+                    } bg-transparent border-start-0 border-1 shadow-none fs-sm formInput`}
                     aria-describedby="email-input"
                     isInvalid={!!errors.email}
                     disabled={isSubmitting}
@@ -104,7 +103,7 @@ const Login = () => {
                   <InputGroup.Text
                     className={`${
                       !!errors.password ? "border-danger" : "border-primary"
-                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start ${styles.formIcon}`}
+                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start formIcon`}
                   >
                     <IoMdLock />
                   </InputGroup.Text>
@@ -118,7 +117,7 @@ const Login = () => {
                     type="password"
                     className={`${
                       !!errors.password ? "border-danger" : "border-primary"
-                    } bg-transparent border-start-0 border-1 shadow-none ${styles.formInput} fs-sm`}
+                    } bg-transparent border-start-0 border-1 shadow-none formInput fs-sm`}
                     aria-describedby="password-input"
                     isInvalid={!!errors.password}
                     disabled={isSubmitting}

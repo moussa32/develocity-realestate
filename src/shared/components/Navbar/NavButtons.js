@@ -1,8 +1,10 @@
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setShowModal } from "../../../redux/features/ModalSlice";
-import Login from "../../../modules/Auth/Login/Login";
-import Signup from "../../../modules/Auth/Signup/Signup";
+import { lazy } from "react";
+const LoginModal = lazy(() => import("../../../modules/Auth/Login/Login"));
+const SignupModal = lazy(() => import("../../../modules/Auth/Signup/Signup"));
+const VerifyCode = lazy(() => import("../../../modules/Auth/VerifyCode"));
 
 const NavButtons = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,9 @@ const NavButtons = () => {
       >
         Sign Up
       </Button>
-      <Login />
-      <Signup />
+      <LoginModal />
+      <SignupModal />
+      <VerifyCode />
     </section>
   );
 };

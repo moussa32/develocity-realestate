@@ -5,13 +5,10 @@ import { IoMdLock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { Formik } from "formik";
 import { globalInstance } from "../../../api/constants";
-import { setUser } from "../../../redux/features/UserSlice";
-import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import styles from "../Auth.module.scss";
 import ThirdPartyButtons from "../ThirdPartyButtons";
 import UseAnimations from "react-useanimations";
 import infinity from "react-useanimations/lib/infinity";
@@ -30,14 +27,19 @@ const Signup = () => {
     const sendData = await globalInstance.post("/auth/register", { type: "email", ...data });
     const { data: responseData } = sendData;
 
-    setErrors({ [responseData.field]: responseData.msg });
+    if (responseData.data) {
+      dispatch(setShowModal({ view: "verify-code", open: true }));
+      localStorage.setItem("register", JSON.stringify({ step: "verify-code", email: data.email }));
+    } else {
+      setErrors({ [responseData.field]: responseData.msg });
+    }
   };
 
   useEffect(() => {
     return () => {
       dispatch(setCloseModal());
     };
-  }, []);
+  }, [dispatch]);
 
   const handleClose = useCallback(() => {
     dispatch(setCloseModal());
@@ -76,7 +78,7 @@ const Signup = () => {
                     id="basic-addon1"
                     className={`${
                       !!errors.username ? "border-danger" : "border-primary"
-                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start ${styles.formIcon}`}
+                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start formIcon`}
                   >
                     <FaUserAlt />
                   </InputGroup.Text>
@@ -90,7 +92,7 @@ const Signup = () => {
                     type="text"
                     className={`${
                       !!errors.username ? "border-danger" : "border-primary"
-                    } bg-transparent border-start-0 border-1 shadow-none fs-sm ${styles.formInput}`}
+                    } bg-transparent border-start-0 border-1 shadow-none fs-sm formInput`}
                     aria-describedby="username-input"
                     isInvalid={!!errors.username}
                     disabled={isSubmitting}
@@ -105,7 +107,7 @@ const Signup = () => {
                     id="basic-addon1"
                     className={`${
                       !!errors.email ? "border-danger" : "border-primary"
-                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start ${styles.formIcon}`}
+                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start formIcon`}
                   >
                     <MdEmail />
                   </InputGroup.Text>
@@ -119,7 +121,7 @@ const Signup = () => {
                     type="email"
                     className={`${
                       !!errors.email ? "border-danger" : "border-primary"
-                    } bg-transparent border-start-0 border-1 shadow-none fs-sm ${styles.formInput}`}
+                    } bg-transparent border-start-0 border-1 shadow-none fs-sm formInput`}
                     aria-describedby="email-input"
                     isInvalid={!!errors.email}
                     disabled={isSubmitting}
@@ -133,7 +135,7 @@ const Signup = () => {
                   <InputGroup.Text
                     className={`${
                       !!errors.password ? "border-danger" : "border-primary"
-                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start ${styles.formIcon}`}
+                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start formIcon`}
                   >
                     <IoMdLock />
                   </InputGroup.Text>
@@ -147,7 +149,7 @@ const Signup = () => {
                     type="password"
                     className={`${
                       !!errors.password ? "border-danger" : "border-primary"
-                    } bg-transparent border-start-0 border-1 shadow-none ${styles.formInput} fs-sm`}
+                    } bg-transparent border-start-0 border-1 shadow-none formInput fs-sm`}
                     aria-describedby="password-input"
                     isInvalid={!!errors.password}
                     disabled={isSubmitting}

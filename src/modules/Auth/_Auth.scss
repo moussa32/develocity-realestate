@@ -1,0 +1,19 @@
+.formInput {
+  padding: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.formInput::placeholder {
+  color: #c4c4c4;
+}
+
+.formIcon {
+  padding: 1rem 0.875rem 1rem 1.125rem;
+  color: #c4c4c4;
+}
+
+.formIcon svg {
+  width: 24px;
+  height: 23px;
+}

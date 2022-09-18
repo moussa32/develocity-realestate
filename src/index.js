@@ -12,7 +12,7 @@ let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Suspense fallback={<></>}>
+    <Suspense fallback={<div className="bg-transparent h-100 w-100"></div>}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App />

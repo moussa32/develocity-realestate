@@ -1,6 +1,4 @@
-import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
-import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import Carousel from "react-multi-carousel";
 import PropertyCard from "./PropertyCard";
@@ -69,23 +67,23 @@ const DealsCarousel = () => {
   return (
     <section className="my-5">
       <Tab.Container id="deals-carousel" defaultActiveKey={activeTab} onSelect={handleSelectTab}>
-        <Nav variant="pills">
-          <Row className="w-100">
-            <Col md={5} className="d-flex flex-row flex-wrap">
+        <Nav variant="pills" className="overflow-hidden">
+          <div className="w-100 d-flex responsive-pills">
+            <div className="d-flex flex-row">
               {categories?.slice(0, 2)?.map(({ id, name }) => (
                 <TabButton key={`${id}${name}`} activeTab={activeTab} name={name} />
               ))}
-            </Col>
-            <Col md={2}>
+            </div>
+            <div className="align-self-center text-center flex-fill">
               <h2 className="text-capitalize fs-3xl text-primary mb-0">hot deals</h2>
-            </Col>
-            <Col md={5} className="d-flex flex-row justify-content-end">
+            </div>
+            <div className="d-flex flex-row justify-content-md-end">
               {categories?.slice(2, 3)?.map(({ id, name }) => (
                 <TabButton key={`${id}${name}`} activeTab={activeTab} name={name} />
               ))}
               <TabButton activeTab={activeTab} customEventKey={"view-all"} name={"view all"} />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </Nav>
         <Tab.Content>
           <Tab.Pane eventKey={activeTab}>

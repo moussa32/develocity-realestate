@@ -1,0 +1,19 @@
+@import "./variables/colors";
+@import "./overrides.module";
+@import "~bootstrap/scss/bootstrap";
+@import "../shared/components/Navbar/UserActions";
+@import "../shared/components/Navbar/Search";
+@import "../shared/components/Navbar/NavButtons";
+@import "../shared/components/Navbar/NavLinks";
+@import "../shared/components/DividerWithText";
+@import "../modules/Home/About";
+@import "../modules/Home/DealsCarousel";
+@import "../modules/Home/PropertyCard";
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}

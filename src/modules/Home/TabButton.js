@@ -1,18 +1,17 @@
 import { memo } from "react";
 import Nav from "react-bootstrap/Nav";
-import styles from "./DealsCarousel.module.css";
 
 const TabButton = ({ activeTab, name, customEventKey }) => {
   return (
     <Nav.Item
-      className={`border-bottom border-secondary border-4 ${
+      className={`border-bottom border-secondary border-4 flex-fill text-center justify-content-center d-flex ${
         activeTab === (customEventKey || name) && "border-primary"
       }`}
     >
       <Nav.Link
         as={"button"}
         eventKey={customEventKey ? customEventKey : name}
-        className={`text-muted text-capitalize fs-lg px-5 ${styles.dealsTabButton} ${
+        className={`text-muted text-capitalize fs-lg px-5 dealsTabButton ${
           activeTab === (customEventKey || name) && "bg-transparent"
         }`}
       >

@@ -35,11 +35,10 @@ const Login = () => {
     setSubmitting(true);
     const sendData = await globalInstance.post("/auth/login", { type: "email", ...data });
     const { data: responseData } = sendData;
-    (responseData.code === 5002 || 5006) && setErrors({ email: responseData.msg });
-    responseData.code === 5004 && setErrors({ password: responseData.msg });
+    setErrors({ [responseData.field]: responseData.msg });
 
-    if (data.code === 200) {
-      dispatch(setUser(data.data.user));
+    if (responseData.code === 200) {
+      dispatch(setUser(responseData.data.user));
       dispatch(setCloseModal());
     }
   };

@@ -1,0 +1,22 @@
+/*
+64 => 5xl
+48 => 4xl
+40 => 3xl
+32 => 2xl
+30 => xl
+28 => lg
+24 => md
+20 => sm
+16 => xs
+*/
+
+$font-size-base: 1rem;
+$font-size-5xl: $font-size-base * 4;
+$font-size-4xl: $font-size-base * 3;
+$font-size-3xl: $font-size-base * 2.5;
+$font-size-2xl: $font-size-base * 2;
+$font-size-xl: $font-size-base * 1.875;
+$font-size-lg: $font-size-base * 1.75;
+$font-size-md: $font-size-base * 1.5;
+$font-size-sm: $font-size-base * 1.25;
+$font-size-xs: $font-size-base;

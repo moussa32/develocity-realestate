@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import mainImage from "../../assets/images/minaOverlapImg.png";
 import secondImage from "../../assets/images/secondOverlapImg.png";
 import { ImPlay3 } from "react-icons/im";
-import styles from "./About.module.scss";
 import { Link } from "react-router-dom";
 import DividerWithText from "../../shared/components/DividerWithText";
 
@@ -13,21 +12,19 @@ const About = () => {
   return (
     <section className="bg-primary bg-opacity-5 py-5">
       <Container>
-        <DividerWithText text="about us" />
+        <DividerWithText text="about us" bgVariant="primary" />
         <Row>
           <Col lg={7} md={12} sm={12}>
-            <div className={styles.imageStack}>
-              <div className={`${styles.imageStackItem} ${styles.imageStackItemTop}`}>
+            <div className="imageStack">
+              <div className="imageStackItem imageStackItemTop">
                 <img src={mainImage} alt="A portrait of a girl under hanging flowers." />
               </div>
-              <div className={`${styles.imageStackItem} ${styles.imageStackItemBottom}`}>
+              <div className="imageStackItem imageStackItemBottom">
                 <div className="position-relative" role="button">
-                  <div className={`${styles.overlay} position-absolute h-100 w-100`}></div>
+                  <div className="overlay position-absolute h-100 w-100"></div>
                   <img src={secondImage} alt="" />
-                  <span
-                    className={`${styles.playButtonWrapper} position-absolute top-50 start-50 translate-middle bg-white rounded-circle d-flex align-items-center justify-content-center`}
-                  >
-                    <ImPlay3 className={`${styles.playButton} text-primary`} />
+                  <span className="playButtonWrapper position-absolute top-50 start-50 translate-middle bg-white rounded-circle d-flex align-items-center justify-content-center">
+                    <ImPlay3 className="playButton text-primary" />
                   </span>
                 </div>
               </div>
@@ -46,7 +43,7 @@ const About = () => {
               as={Link}
               variant="primary"
               to="/"
-              className={`text-white ${styles.readMoreButton} fs-md d-flex align-items-center fw-semibold`}
+              className={`text-white readMoreButton fs-md d-flex align-items-center fw-semibold`}
             >
               Read More
             </Button>

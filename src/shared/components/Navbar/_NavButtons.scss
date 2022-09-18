@@ -1,7 +1,3 @@
-@import "~bootstrap/scss/_functions.scss";
-@import "~bootstrap/scss/_variables.scss";
-@import "~bootstrap/scss/mixins/_breakpoints.scss";
-
 @include media-breakpoint-down(md) {
   .navButtonsWrapper {
     margin: 0.5rem auto;

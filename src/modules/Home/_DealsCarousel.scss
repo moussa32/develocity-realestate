@@ -1,0 +1,22 @@
+.dealsTabButton {
+  border-bottom: 4px #ddd solid;
+}
+
+.viewDeatailsButton {
+  height: 64px;
+  width: 250px;
+  border-radius: 10px;
+}
+
+.responsive-pills {
+  flex-direction: column;
+}
+
+@include media-breakpoint-up(md) {
+  .viewDeatailsButton {
+    width: 334px;
+  }
+  .responsive-pills {
+    flex-direction: row;
+  }
+}

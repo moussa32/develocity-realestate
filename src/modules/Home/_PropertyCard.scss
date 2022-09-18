@@ -1,7 +1,7 @@
-.card {
+.custom-card {
   background-color: #fafafa;
   border-radius: 10px;
-  width: 422px;
+  width: 100%;
   margin-top: 3rem;
   margin-bottom: 3.125rem;
 }
@@ -67,4 +67,10 @@
 
 .detailsBtn:hover {
   color: #fff;
+}
+
+@include media-breakpoint-up(md) {
+  .custom-card {
+    width: 422px;
+  }
 }

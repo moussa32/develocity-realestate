@@ -4,8 +4,14 @@ import Logo from "../../../assets/images/logo.png";
 import styles from "./Navbar.module.css";
 import NavLinks from "./NavLinks";
 import NavButtons from "./NavButtons";
+import { useSelector } from "react-redux";
+import UserActions from "./UserActions";
+import Search from "./Search";
 
 const Navbar = () => {
+  const userData = useSelector((state) => state.user);
+  const isUser = Object.keys(userData).length > 0;
+
   return (
     <BootstrapNavbar expand="md" bg="white" className={styles.navbarWrapper}>
       <Container>
@@ -20,9 +26,11 @@ const Navbar = () => {
         </BootstrapNavbar.Brand>
         <BootstrapNavbar.Toggle aria-controls="collapse-navbar" />
         <BootstrapNavbar.Collapse id="collapse-navbar">
-          <NavLinks />
+          {!isUser && <NavLinks />}
+          {isUser && <Search />}
+          {isUser && <UserActions userData={userData} />}
         </BootstrapNavbar.Collapse>
-        <NavButtons />
+        {!isUser && <NavButtons />}
       </Container>
     </BootstrapNavbar>
   );

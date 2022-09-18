@@ -9,7 +9,7 @@ import Search from "./Search";
 
 const Navbar = () => {
   const userData = useSelector((state) => state.user);
-  const isUser = Object.keys(userData).length > 0;
+  const isUser = Object.keys(userData ?? {}).length > 0;
   console.log(userData);
 
   return (

@@ -3,7 +3,7 @@ import { lazy } from "react";
 import Home from "./modules/Home/Home";
 import Navbar from "./shared/components/Navbar/Navbar";
 // import OldNavbar from "./common/Navbar/Navbar";
-import NavbarAfterLogin from "./common/NavbarAfterLogin/NavbarAfterLogin";
+// import NavbarAfterLogin from "./common/NavbarAfterLogin/NavbarAfterLogin";
 import "./styles/custom.scss";
 const Properties = lazy(() => import("./pages/Properties"));
 const About = lazy(() => import("./pages/About"));

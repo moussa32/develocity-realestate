@@ -31,13 +31,13 @@ const Search = () => {
         <Form>
           <InputGroup>
             <Form.Control
-              className={`border-primary bg-transparent border-end-0 border-1 shadow-none fs-sm formInput`}
+              className={`border-primary bg-transparent border-end-0 border-1 shadow-none fs-sm formInput ps-3`}
               placeholder="Find Home, Apartment And More"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
             />
-            <Button variant="primary" id="button-addon2">
-              <AiOutlineSearch className="text-white" size={"1.5rem"} />
+            <Button variant="primary" id="button-addon2" className="px-3 rounded">
+              <AiOutlineSearch className="text-white" size={"1.8rem"} />
             </Button>
           </InputGroup>
         </Form>

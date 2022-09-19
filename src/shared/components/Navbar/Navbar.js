@@ -13,7 +13,7 @@ const Navbar = () => {
   console.log(userData);
 
   return (
-    <BootstrapNavbar expand="md" bg="white" className="navbarWrapper">
+    <BootstrapNavbar expand="md" bg="white" className="navbarWrapper" style={{ zIndex: 1010 }}>
       <Container>
         <BootstrapNavbar.Brand href="/">
           <img className={`navbarBrand d-inline-block align-top`} src={Logo} width="77" height="73" alt="Akarat" />

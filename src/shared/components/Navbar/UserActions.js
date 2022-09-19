@@ -23,16 +23,16 @@ const UserActions = ({ userData }) => {
   };
 
   return (
-    <div className="d-flex gap-2 align-items-center ms-4">
-      <BsChat className="text-primary" size={"2.9rem"} />
-      <MdOutlineNotificationsNone className="text-primary" size={"2.9rem"} />
+    <div className="d-flex gap-3 align-items-center ms-4">
+      <BsChat className="text-primary opacity-75" size={"2.2rem"} />
+      <MdOutlineNotificationsNone className="text-primary opacity-75" size={"2.6rem"} />
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="avatar-dropdow">
+        <Dropdown.Toggle className="px-0 bg-transparent border-0" id="avatar-dropdow">
           <img className="rounded-circle" src={image} alt={username} title={username} width={47} height={44} />
-          <MdOutlineKeyboardArrowDown />
+          <MdOutlineKeyboardArrowDown className="fs-xl text-primary ms-1" />
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="dropdown-menu-end py-0">
+        <Dropdown.Menu className="dropdown-menu-end py-0" style={{ zIndex: 5000 }}>
           <Dropdown.Item as={Button} className="d-flex py-2 bg-primary bg-opacity-5">
             <img className="rounded-circle" src={image} alt={username} title={username} width={47} height={44} />
             <div className="ms-3">

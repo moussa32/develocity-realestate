@@ -4,7 +4,7 @@ import { setCloseModal } from "../../../redux/features/ModalSlice";
 import { IoMdLock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { Formik } from "formik";
-import { globalInstance } from "../../../api/constants";
+import { authentcatedInstance } from "../../../api/constants";
 import { setUser } from "../../../redux/features/UserSlice";
 import { Link, useLocation } from "react-router-dom";
 import loginSchema from "../../../shared/schemas/LoginSchema";
@@ -26,11 +26,7 @@ const Login = () => {
   const handleLoginForm = async (data, actions) => {
     const { setSubmitting, setErrors } = actions;
     setSubmitting(true);
-    const sendData = await globalInstance.post(
-      "/auth/login",
-      { type: "email", ...data },
-      { withCredentials: true, headers: { "X-Requested-With": "XMLHttpRequest" } }
-    );
+    const sendData = await authentcatedInstance.post("/auth/login", { type: "email", ...data });
     const { data: responseData } = sendData;
     setErrors({ [responseData.field]: responseData.msg });
 

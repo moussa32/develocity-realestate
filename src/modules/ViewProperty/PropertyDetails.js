@@ -14,7 +14,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const request = authentcatedInstance
       .get(`/advertisements/${propertyID}`)
-      .then((response) => console.log(response.data))
+      .then((response) => console.log(response))
       .catch((error) => console.log(error));
   }, [propertyID]);
 

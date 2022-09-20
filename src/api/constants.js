@@ -12,7 +12,6 @@ export const globalInstance = axios.create({
 });
 
 export const authentcatedInstance = axios.create({
-  withCredentials: true,
   baseURL: BASE_URL,
   headers: {
     app_api_key: APP_API_KEY,

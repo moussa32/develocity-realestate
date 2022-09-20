@@ -4,8 +4,8 @@ import { fetchFooter } from "../../redux/features/FooterSlice";
 import { Link } from "react-router-dom";
 import { BsFacebook, BsTwitter, BsYoutube, BsInstagram } from "react-icons/bs";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/container";
-import Row from "react-bootstrap/row";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import { SiLinkedin, SiAirbnb } from "react-icons/si";
 
 const Footer = () => {

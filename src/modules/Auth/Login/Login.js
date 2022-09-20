@@ -26,7 +26,11 @@ const Login = () => {
   const handleLoginForm = async (data, actions) => {
     const { setSubmitting, setErrors } = actions;
     setSubmitting(true);
-    const sendData = await globalInstance.post("/auth/login", { type: "email", ...data }, { withCredentials: true });
+    const sendData = await globalInstance.post(
+      "/auth/login",
+      { type: "email", ...data },
+      { withCredentials: true, headers: { "X-Requested-With": "XMLHttpRequest" } }
+    );
     const { data: responseData } = sendData;
     setErrors({ [responseData.field]: responseData.msg });
 

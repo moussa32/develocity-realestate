@@ -10,7 +10,6 @@ import Search from "./Search";
 const Navbar = () => {
   const userData = useSelector((state) => state.user);
   const isUser = Object.keys(userData).length > 0;
-  console.log(isUser);
 
   return (
     <BootstrapNavbar expand="md" bg="white" className="navbarWrapper" style={{ zIndex: 1010 }}>

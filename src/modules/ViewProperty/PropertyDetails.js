@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Container from "react-bootstrap/container";
-import Row from "react-bootstrap/row";
-import Col from "react-bootstrap/col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { useParams } from "react-router-dom";
 import { authentcatedInstance } from "../../api/constants";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";

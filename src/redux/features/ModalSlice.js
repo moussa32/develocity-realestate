@@ -8,8 +8,8 @@ const modalSlice = createSlice({
   },
   reducers: {
     setShowModal: (state, action) => {
-      state.view = action.payload.view;
-      state.open = true;
+      let newDataObject = Object.assign(state, { view: action.payload, open: true });
+      return newDataObject;
     },
     setCloseModal: (state) => {
       state.view = "";

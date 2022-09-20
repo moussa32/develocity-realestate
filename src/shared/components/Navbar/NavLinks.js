@@ -8,7 +8,7 @@ const NavLinks = () => {
         className={({ isActive }) =>
           `${
             isActive && `text-primary border-bottom border-primary border-2`
-          } text-center fw-bold fs-sm text-capitalize text-decoration-none navLinkNormal`
+          } text-center fw-semibold fs-sm text-capitalize text-decoration-none navLinkNormal`
         }
         to="/"
       >
@@ -18,7 +18,7 @@ const NavLinks = () => {
         className={({ isActive }) =>
           `${
             isActive && `text-primary border-bottom border-primary border-2`
-          } text-center fw-bold fs-sm text-capitalize text-decoration-none navLinkNormal`
+          } text-center fw-semibold fs-sm text-capitalize text-decoration-none navLinkNormal`
         }
         to="/properties"
       >
@@ -28,7 +28,7 @@ const NavLinks = () => {
         className={({ isActive }) =>
           `${
             isActive && `text-primary border-bottom border-primary border-2`
-          } text-center fw-bold fs-sm text-capitalize text-decoration-none navLinkNormal`
+          } text-center fw-semibold fs-sm text-capitalize text-decoration-none navLinkNormal`
         }
         to="/hot-deals"
       >
@@ -38,7 +38,7 @@ const NavLinks = () => {
         className={({ isActive }) =>
           `${
             isActive && `text-primary border-bottom border-primary border-2`
-          } text-center fw-bold fs-sm text-capitalize text-decoration-none navLinkNormal`
+          } text-center fw-semibold fs-sm text-capitalize text-decoration-none navLinkNormal`
         }
         to="/about-us"
       >
@@ -48,7 +48,7 @@ const NavLinks = () => {
         className={({ isActive }) =>
           `${
             isActive && `text-primary border-bottom border-primary border-2`
-          } text-center fw-bold fs-sm text-capitalize text-decoration-none navLinkNormal`
+          } text-center fw-semibold fs-sm text-capitalize text-decoration-none navLinkNormal`
         }
         to="/contact-us"
       >

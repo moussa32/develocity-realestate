@@ -28,25 +28,19 @@ const Signup = () => {
     const { data: responseData } = sendData;
 
     if (responseData.data) {
-      dispatch(setShowModal({ view: "verify-code", open: true }));
+      dispatch(setShowModal("verify-code"));
       localStorage.setItem("register", JSON.stringify({ step: "verify-code", email: data.email }));
     } else {
       setErrors({ [responseData.field]: responseData.msg });
     }
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(setCloseModal());
-    };
-  }, [dispatch]);
-
   const handleClose = useCallback(() => {
     dispatch(setCloseModal());
   }, [dispatch]);
 
   const handleLoginSwitch = () => {
-    dispatch(setShowModal({ view: "login", open: true }));
+    dispatch(setShowModal("login"));
   };
 
   return (

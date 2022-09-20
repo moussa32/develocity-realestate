@@ -1,0 +1,26 @@
+.footer-style {
+  background: #030718;
+}
+
+.main-footer {
+  padding: 4rem 0;
+}
+
+.secondary-footer {
+  border-top: 1px $secondary solid;
+  padding: 1.8rem 0;
+}
+
+.josefin-text {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+}
+
+.footer-list-item {
+  &:hover {
+    color: $primary !important;
+    transition: 0.8s;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px $secondary solid;
+  }
+}

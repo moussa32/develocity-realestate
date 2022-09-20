@@ -6,17 +6,20 @@ import HomeSlice from "./features/HomeSlice";
 import ModalSlice from "./features/ModalSlice";
 import UserSlice from "./features/UserSlice";
 import storage from "redux-persist/lib/storage";
+import FooterSlice from "./features/FooterSlice";
 
 const reducers = combineReducers({
   home: HomeSlice,
   category: CategorySlice,
   modal: ModalSlice,
   user: UserSlice,
+  footer: FooterSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["modal"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

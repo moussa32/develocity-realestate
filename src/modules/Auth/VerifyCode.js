@@ -46,7 +46,7 @@ const VerifyCode = () => {
     if (responseData.code === 200) {
       setStatus({ type: "success", message: "Your account has been successfully activated" });
       localStorage.removeItem("register");
-      dispatch(setShowModal({ view: "login" }));
+      dispatch(setShowModal("login"));
     } else {
       setStatus({ type: "danger", message: responseData.msg });
     }

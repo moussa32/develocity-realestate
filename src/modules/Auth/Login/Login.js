@@ -6,7 +6,7 @@ import { MdEmail } from "react-icons/md";
 import { Formik } from "formik";
 import { globalInstance } from "../../../api/constants";
 import { setUser } from "../../../redux/features/UserSlice";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import loginSchema from "../../../shared/schemas/LoginSchema";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -22,12 +22,6 @@ const Login = () => {
   const currentModal = useSelector((state) => state.modal.view);
   const showModalStatus = useSelector((state) => state.modal.open);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    return () => {
-      dispatch(setCloseModal());
-    };
-  }, [dispatch]);
 
   const handleLoginForm = async (data, actions) => {
     const { setSubmitting, setErrors } = actions;

@@ -18,7 +18,6 @@ const UserActions = ({ userData }) => {
 
   const handleLogout = async () => {
     const logoutRequest = await globalInstance.post("auth/logout");
-    console.log(logoutRequest);
     dispatch(removeUser());
   };
 

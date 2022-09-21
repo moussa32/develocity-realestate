@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import styles from "./Hero.module.css";
+import { setShowModal } from "../../redux/features/ModalSlice";
 
 const Hero = () => {
   const Home = useSelector((state) => state.home.data);
+  const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const dispatch = useDispatch();
 
   return (
     <section className={styles.bannerBlock}>
@@ -18,10 +21,11 @@ const Hero = () => {
           </p>
           <p className={`text-white fs-2xl text-capitalize mb-4 mt-2 ${styles.heroP}`}>and in a safe way</p>
           <Button
-            as={Link}
+            as={isUserLoggedIn ? Link : null}
             to="/sell"
             variant="primary"
             className={`${styles.sellButton} text-white fs-md text-uppercase d-flex align-items-center justify-content-center mx-auto fw-semibold`}
+            onClick={() => !isUserLoggedIn && dispatch(setShowModal("login"))}
           >
             <FaPlus className="me-2" />
             sell

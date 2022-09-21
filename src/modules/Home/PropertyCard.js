@@ -5,8 +5,11 @@ import { IoBedSharp } from "react-icons/io5";
 import { BiArea } from "react-icons/bi";
 import { GiBathtub } from "react-icons/gi";
 import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { RiKeyFill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { setShowModal } from "../../redux/features/ModalSlice";
 
 const PropertyCard = ({ info }) => {
   const {
@@ -23,6 +26,8 @@ const PropertyCard = ({ info }) => {
     images,
     hot_deal_price,
   } = info;
+  const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const dispatch = useDispatch();
 
   return (
     <div className="custom-card">
@@ -95,9 +100,14 @@ const PropertyCard = ({ info }) => {
             {id && <li className="propertyTextColor text-capitalize fs-xs text-end">{id}</li>}
           </ul>
         </div>
-        <Link to={`/view/${id}`} className="detailsBtn text-decoration-none text-white bg-primary fw-normal">
+        <Button
+          as={isUserLoggedIn ? Link : null}
+          to={`/view/${id}`}
+          className="detailsBtn text-decoration-none text-white bg-primary fw-normal"
+          onClick={() => !isUserLoggedIn && dispatch(setShowModal("login"))}
+        >
           view details
-        </Link>
+        </Button>
       </div>
     </div>
   );

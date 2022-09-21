@@ -25,18 +25,27 @@ const PropertyDetails = () => {
   return (
     <Container>
       <Row>
-        <Col as="section" md={8}></Col>
-        <Col as="aside" md={4}>
+        <Col as="section" md={7} lg={8}></Col>
+        <Col as="aside" md={5} lg={4}>
           <div className="border border-2 rounded p-4">
             <Row>
               <Col md={9}>
                 <div className="d-flex flex-column">
-                  <p className="mb-4 text-primary fw-semibold fs-2xl">$270.000</p>
-                  <div className="mb-0 text-secondary fs-md">
-                    <IoBedSharp size={"1.5rem"} className="me-3" />
-                    <span>7</span>
+                  <p className="mb-3 text-primary fw-semibold fs-2xl">$270.000</p>
+                  <div className="d-flex flex-row gap-4">
+                    <div className="mb-0 text-secondary fs-md text-opacity-75">
+                      <IoBedSharp size={"1.5rem"} className="me-2" />7
+                    </div>
+                    <div className="mb-0 text-secondary fs-md text-opacity-75 d-flex align-items-center">
+                      <IoBedSharp size={"1.5rem"} className="me-2" />4
+                    </div>
+                    <div className="mb-0 text-secondary fs-md text-opacity-75">
+                      <IoBedSharp size={"1.5rem"} className="me-2" />
+                      360 sqm
+                    </div>
                   </div>
                 </div>
+                <p>Georgia , Antalia</p>
               </Col>
               <Col md={3} className="text-end">
                 {isFavorite ? (
@@ -44,6 +53,7 @@ const PropertyDetails = () => {
                 ) : (
                   <AiOutlineHeart className="text-primary fs-2xl" role="button" onClick={handleAddToFavorites} />
                 )}
+                <p>3 days ago</p>
               </Col>
             </Row>
           </div>

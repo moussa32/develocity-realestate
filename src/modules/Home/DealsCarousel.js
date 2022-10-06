@@ -1,7 +1,7 @@
 import Nav from "react-bootstrap/Nav";
 import Tab from "react-bootstrap/Tab";
 import Carousel from "react-multi-carousel";
-import PropertyCard from "./PropertyCard";
+import PropertyCard from "../../shared/components/PropertyCard";
 import TabButton from "./TabButton";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

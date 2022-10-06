@@ -7,6 +7,7 @@ import ModalSlice from "./features/ModalSlice";
 import UserSlice from "./features/UserSlice";
 import storage from "redux-persist/lib/storage";
 import FooterSlice from "./features/FooterSlice";
+import SellSlice from "./features/SellSlice";
 
 const reducers = combineReducers({
   home: HomeSlice,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   modal: ModalSlice,
   user: UserSlice,
   footer: FooterSlice,
+  sell: SellSlice,
 });
 
 const persistConfig = {

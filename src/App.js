@@ -13,7 +13,7 @@ import ProtectedRoute from "./shared/components/ProtectedRoute";
 const Home = lazy(() => import("./modules/Home/Home"));
 const About = lazy(() => import("./pages/About"));
 const Deals = lazy(() => import("./pages/Deals"));
-const SellHome = lazy(() => import("./modules/Sell/SellHome"));
+const SellCategory = lazy(() => import("./modules/Sell/SellCategory"));
 // const SellHome = lazy(() => import("./pages/SellHome"));
 // const View = lazy(() => import("./pages/View"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -33,11 +33,9 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="sell" element={<Sell />}>
-              <Route path="sell-home" element={<SellHome />}></Route>
-            </Route>
+            <Route path="sell" element={<Sell />} />
+            <Route path="sell/:categoryName" element={<SellCategory />} />
           </Route>
-          <Route path="/sellHome/:categoryId" element={<SellHome />} />
           <Route path="/view/:propertyID" element={<PropertyDetails />} />
           <Route path="/details" element={<Details />} />
           <Route path="/welcome" element={<Welcome />} />

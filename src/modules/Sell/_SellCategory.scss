@@ -1,0 +1,24 @@
+.postRealStateTextInput {
+  padding: 0.7rem 1.5rem;
+  &::placeholder {
+    text-transform: capitalize;
+  }
+}
+
+.customButtonWrapper {
+  padding: 0.3rem 3rem;
+  border: 1px $secondary solid;
+  border-radius: 10px;
+  div {
+    input {
+      &:checked {
+        border: 1px rgba($primary, 0.67) solid;
+        background-color: rgba($primary, 0.67);
+      }
+    }
+  }
+}
+
+.customButtonWrapperSelected {
+  border: 1px rgba($primary, 0.67) solid;
+}

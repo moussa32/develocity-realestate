@@ -5,7 +5,7 @@ const TabButton = ({ activeTab, name, customEventKey }) => {
   return (
     <Nav.Item
       className={`border-bottom border-secondary border-4 flex-fill text-center justify-content-center d-flex ${
-        activeTab === (customEventKey || name) && "border-primary"
+        activeTab === (customEventKey || name) ? "border-primary" : null
       }`}
     >
       <Nav.Link

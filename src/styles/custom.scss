@@ -13,7 +13,8 @@
 @import "../modules/Auth/VerifyCode";
 @import "../shared/components/Navbar/Navbar";
 @import "../shared/components/Footer";
-
+@import "../modules/Sell/Sell";
+@import "../modules/Sell/SellCategory";
 body {
   font-family: "Roboto", sans-serif;
 }

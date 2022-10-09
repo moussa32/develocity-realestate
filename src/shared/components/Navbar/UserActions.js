@@ -44,7 +44,11 @@ const UserActions = ({ userData }) => {
             </div>
           </Dropdown.Item>
           <NavDropdown.Divider className="m-0" />
-          <Dropdown.Item href="#/action-2" className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}>
+          <Dropdown.Item
+            as={Link}
+            to="/favourite"
+            className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}
+          >
             <AiOutlineHeart className="me-2" size="1.2rem" />
             favourites
           </Dropdown.Item>

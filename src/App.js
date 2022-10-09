@@ -3,7 +3,6 @@ import { lazy } from "react";
 // import Home from "./modules/Home/Home";
 import Navbar from "./shared/components/Navbar/Navbar";
 import Sell from "./modules/Sell/Sell";
-
 import Footer from "./shared/components/Footer";
 import Properties from "./pages/Properties";
 import "./styles/custom.scss";
@@ -19,7 +18,7 @@ const SellCategory = lazy(() => import("./modules/Sell/SellCategory"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Details = lazy(() => import("./pages/Details"));
 const Welcome = lazy(() => import("./pages/Welcome"));
-// const Footer = lazy(() => import("./common/Footer/Footer"));
+const Favourites = lazy(() => import("./modules/User/Favourites"));
 
 const App = () => {
   return (
@@ -35,6 +34,7 @@ const App = () => {
           <Route element={<ProtectedRoute />}>
             <Route path="sell" element={<Sell />} />
             <Route path="sell/:categoryName" element={<SellCategory />} />
+            <Route path="favourite" element={<Favourites />} />
           </Route>
           <Route path="/view/:propertyID" element={<PropertyDetails />} />
           <Route path="/details" element={<Details />} />

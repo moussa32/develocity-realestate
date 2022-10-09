@@ -4,8 +4,8 @@ import Nav from "react-bootstrap/Nav";
 const TabButton = ({ activeTab, name, customEventKey }) => {
   return (
     <Nav.Item
-      className={`border-bottom border-secondary border-4 flex-fill text-center justify-content-center d-flex ${
-        activeTab === (customEventKey || name) ? "border-primary" : null
+      className={`border-bottom border-4 flex-fill text-center justify-content-center d-flex ${
+        activeTab === (customEventKey || name) ? "border-primary" : "border-secondary"
       }`}
     >
       <Nav.Link

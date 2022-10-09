@@ -64,6 +64,8 @@ const DealsCarousel = () => {
     }
   };
 
+  console.log(activeTab);
+
   return (
     <section className="my-5">
       <Tab.Container id="deals-carousel" defaultActiveKey={activeTab} onSelect={handleSelectTab}>

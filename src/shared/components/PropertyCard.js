@@ -25,6 +25,9 @@ const PropertyCard = ({ info }) => {
     bathrooms,
     images,
     hot_deal_price,
+    Icon,
+    iconHandler,
+    iconClassNames,
   } = info;
   const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
@@ -44,6 +47,7 @@ const PropertyCard = ({ info }) => {
               hot deals
             </Badge>
           )}
+          {Icon && <Icon className={iconClassNames} onClick={() => iconHandler && iconHandler()} />}
         </div>
         <h2 className={`propertyTextColor fs-md`}>{title}</h2>
         <div className={`d-flex price align-items-center`}>

@@ -20,6 +20,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Details = lazy(() => import("./pages/Details"));
 const Welcome = lazy(() => import("./pages/Welcome"));
 const Favourites = lazy(() => import("./modules/User/Favourites"));
+const HotDeals = lazy(() => import("./modules/User/HotDeals"));
 
 const App = () => {
   const isNotificationsOpen = useSelector(({ notifications }) => notifications.data.isOpen);
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="sell" element={<Sell />} />
               <Route path="sell/:categoryName" element={<SellCategory />} />
               <Route path="favourite" element={<Favourites />} />
+              <Route path="hot-deals" element={<HotDeals />} />
             </Route>
             <Route path="/view/:propertyID" element={<PropertyDetails />} />
             <Route path="/details" element={<Details />} />

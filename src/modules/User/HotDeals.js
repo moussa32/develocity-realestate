@@ -2,60 +2,43 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { authentcatedInstance } from "../../api/constants";
 import PropertyCard from "../../shared/components/PropertyCard";
-import { AiFillHeart } from "react-icons/ai";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import ReactPaginate from "react-paginate";
 
-const Favourites = () => {
-  const [favouriteItems, setFavouriteItems] = useState([]);
+const HotDeals = () => {
+  const [hotDealItems, setHotDealItems] = useState([]);
   const [pagination, setPagination] = useState(null);
 
   useEffect(() => {
-    authentcatedInstance.get("user/favorite_realstate").then((res) => {
+    authentcatedInstance.get("user/hot_deal").then((res) => {
       const { data } = res;
       const { data: responseData } = data;
       const { pagination, realstate } = responseData;
       setPagination(pagination);
-      const convertedFavouriteItems = realstate.map((item) => ({
-        ...item,
-        Icon: AiFillHeart,
-        iconHandler: handleFavouriteButton,
-        iconClassNames: "text-primary fs-md favouriteIcon",
-      }));
-      setFavouriteItems(convertedFavouriteItems);
+      setHotDealItems(realstate);
     });
   }, []);
 
   const handlePageClick = async (event) => {
     const nextPageNumber = event.selected + 1;
-    await authentcatedInstance.get(`user/favorite_realstate?page=${nextPageNumber}`).then((res) => {
+    await authentcatedInstance.get(`user/hot_deal?page=${nextPageNumber}`).then((res) => {
       const { data } = res;
       const { data: responseData } = data;
       const { pagination, realstate } = responseData;
-      const convertedFavouriteItems = realstate.map((item) => ({
-        ...item,
-        Icon: AiFillHeart,
-        iconHandler: handleFavouriteButton,
-        iconClassNames: "text-primary fs-md favouriteIcon",
-      }));
       setPagination(pagination);
-      setFavouriteItems(convertedFavouriteItems);
+      setHotDealItems(realstate);
     });
-  };
-
-  const handleFavouriteButton = () => {
-    console.log("Icon Clicked");
   };
 
   return (
     <Container as="section" fluid>
-      <h1 className="text-capitalize d-flex align-items-center ps-4 my-5 fs-2xl userPageHeader">favourites</h1>
+      <h1 className="text-capitalize d-flex align-items-center ps-4 my-5 fs-2xl userPageHeader">hot Deals</h1>
       <section className="userPageContainer row">
-        {favouriteItems &&
-          favouriteItems.map((favouriteItem) => (
+        {hotDealItems &&
+          hotDealItems.map((hotDealItem) => (
             <Col xl={4} lg={6} md={6} sm={6} className="userPageCard">
-              <PropertyCard info={favouriteItem} />
+              <PropertyCard info={hotDealItem} />
             </Col>
           ))}
       </section>
@@ -82,4 +65,4 @@ const Favourites = () => {
   );
 };
 
-export default Favourites;
+export default HotDeals;

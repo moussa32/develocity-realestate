@@ -58,7 +58,11 @@ const UserActions = ({ userData }) => {
             <AiOutlineHeart className="me-2" size="1.2rem" />
             favourites
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-3" className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}>
+          <Dropdown.Item
+            as={Link}
+            to="/hot-deals"
+            className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}
+          >
             <TbDiscount2 className="me-2" size="1.2rem" />
             hot deals
           </Dropdown.Item>
@@ -68,7 +72,6 @@ const UserActions = ({ userData }) => {
           </Dropdown.Item>
           <NavDropdown.Divider className="m-0" />
           <Dropdown.Item
-            as={Button}
             onClick={handleLogout}
             className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}
           >

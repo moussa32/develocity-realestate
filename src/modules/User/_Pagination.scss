@@ -1,0 +1,45 @@
+.pagination-item {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: $secondary;
+  border: 1px solid $secondary;
+  border-radius: 8px;
+  padding: 2px 8px;
+  margin-right: 15px;
+}
+
+.active-pagination-item {
+  background-color: $primary;
+  border-color: $primary;
+  color: white;
+}
+
+.disabled-pagination-item {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  color: $secondary;
+  &:hover {
+    color: $secondary;
+  }
+}
+
+.prev-pagination-button {
+  margin-right: 15px;
+}
+
+.next-pagination-button,
+.prev-pagination-button {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #007dce;
+}

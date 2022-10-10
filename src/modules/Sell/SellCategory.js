@@ -11,6 +11,24 @@ import { homeSchema } from "../../shared/schemas/PostRealState";
 import { Formik } from "formik";
 import UseAnimations from "react-useanimations";
 import infinity from "react-useanimations/lib/infinity";
+import PlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import { useRef, useCallback } from "react";
+
+const libraries = ["places"];
+const mapContainerStyle = {
+  width: "100%",
+  height: "300px",
+  position: "relative",
+};
+const center = {
+  lat: 43,
+  lng: -79,
+};
+const options = {
+  disableDefaultUI: true,
+  zoomControl: true,
+};
 
 const SellCategory = () => {
   const { categoryName } = useParams();
@@ -18,10 +36,38 @@ const SellCategory = () => {
     state.sell.data.data.categories.find((category) => category.name === categoryName)
   );
   console.log(categoryName, currentSellCategory);
+  const { setValue, value } = PlacesAutocomplete();
 
   const handleSubmitRealState = (values, methods) => {
     console.log(values, methods);
   };
+
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+  }, []);
+
+  const handleMyLocation = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleMap = useCallback((e) => {
+    console.log(e.latLng.lat());
+    console.log(e.latLng.lng());
+    console.log(value);
+    // setMarkers((current) => [
+    //   ...current,
+    //   {
+    //     lat: e.latLng.lat(),
+    //     lng: e.latLng.lng(),
+    //   },
+    // ]);
+  }, []);
 
   return (
     <Container className="my-5">
@@ -452,6 +498,26 @@ const SellCategory = () => {
                   <Form.Control placeholder="Type Price" aria-label="Type Price" />
                 </InputGroup>
               </Form.Group>
+              <div className="mapBlock">
+                <PlacesAutocomplete panTo={panTo} handleMyLocation={handleMyLocation} />
+                <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  zoom={8}
+                  center={center}
+                  options={options}
+                  onClick={handleMap}
+                  onLoad={onMapLoad}
+                >
+                  {/* {markers.map((marker) => (
+                    <MarkerF
+                      position={{ lat: marker.lat, lng: marker.lng }}
+                      onClick={() => {
+                        setSelected(marker);
+                      }}
+                    />
+                  ))} */}
+                </GoogleMap>
+              </div>
             </Row>
             <Button
               className="text-white w-100 fs-md d-flex align-items-center justify-content-center gap-2"

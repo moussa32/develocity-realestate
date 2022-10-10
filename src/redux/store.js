@@ -8,6 +8,7 @@ import UserSlice from "./features/UserSlice";
 import storage from "redux-persist/lib/storage";
 import FooterSlice from "./features/FooterSlice";
 import SellSlice from "./features/SellSlice";
+import NotificationsSlice from "./features/NotificationsSlice";
 
 const reducers = combineReducers({
   home: HomeSlice,
@@ -16,12 +17,13 @@ const reducers = combineReducers({
   user: UserSlice,
   footer: FooterSlice,
   sell: SellSlice,
+  notifications: NotificationsSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["modal"],
+  blacklist: ["modal", "category", "user", "footer", "sell", "notifications"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

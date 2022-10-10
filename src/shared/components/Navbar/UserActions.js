@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { removeUser } from "../../../redux/features/UserSlice";
 import { globalInstance } from "../../../api/constants";
 import { FaPlus } from "react-icons/fa";
+import { toggleNotificationsMenu } from "../../../redux/features/NotificationsSlice";
 
 const UserActions = ({ userData }) => {
   const dispatch = useDispatch();
@@ -24,7 +25,12 @@ const UserActions = ({ userData }) => {
   return (
     <div className="d-flex gap-3 align-items-center ms-4">
       <BsChat className="text-primary opacity-75" size={"2.2rem"} />
-      <MdOutlineNotificationsNone className="text-primary opacity-75" size={"2.6rem"} />
+      <MdOutlineNotificationsNone
+        className="text-primary opacity-75"
+        size={"2.6rem"}
+        onClick={() => dispatch(toggleNotificationsMenu())}
+        role="button"
+      />
       <Dropdown>
         <Dropdown.Toggle className="px-0 bg-transparent border-0" id="avatar-dropdow">
           <img className="rounded-circle" src={image} alt={username} title={username} width={47} height={44} />

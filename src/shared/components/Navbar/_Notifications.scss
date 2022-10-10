@@ -1,0 +1,117 @@
+.notificationsOverlay {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  left: 0;
+  z-index: 999;
+  top: 0;
+}
+.notificationsContainer {
+  top: 0;
+  position: fixed;
+  max-width: 613px;
+  right: 27%;
+  z-index: 1000;
+}
+.notificationsHeader {
+  padding: 25px;
+  background-color: #f0f8f9;
+}
+.notificationsTop {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.notificationsHeader h2 {
+  color: $secondaryText;
+  margin-bottom: 0;
+}
+.notificationsMiniIcon {
+  width: 40px;
+  height: 40px;
+  color: rgba($primary, 0.62);
+  margin-right: 16px;
+}
+.notificationsMutedButton {
+  color: #888888;
+  margin-left: 68px;
+}
+.notificationsBody {
+  background-color: #fff;
+  overflow-y: scroll;
+  max-height: 70vh;
+}
+.notificationCard {
+  position: relative;
+  padding: 20px 32px;
+  display: flex;
+}
+.notificationCard:last-child {
+  overflow: hidden;
+}
+.notificationCard::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  left: 5.3%;
+  top: 19%;
+  width: 1px;
+  background-color: $primary;
+}
+.notificationUnread {
+  color: rgba($primary, 0.62);
+  background-color: #f0f8f9;
+}
+.notificationCardContent {
+  display: flex;
+  flex-direction: row;
+}
+.notificationUserImage {
+  width: 76px;
+  height: 71px;
+  border-radius: 15px;
+  margin-right: 23px;
+  object-fit: cover;
+}
+.notificationCardTimeline {
+  position: relative;
+  width: 25px;
+  display: block;
+}
+.notificationCardTimeline::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: -13px;
+  border-radius: 50%;
+  top: 0px;
+  background-color: $primary;
+}
+
+.notificationLine {
+  height: 100%;
+}
+.notificationMainHeading {
+  color: $secondaryText;
+}
+
+@include media-breakpoint-up(xxl) {
+  .notificationsContainer {
+    width: 613px;
+  }
+}
+@include media-breakpoint-down(md) {
+  .notificationsContainer {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    right: 0;
+  }
+}
+@include media-breakpoint-down(sm) {
+  .notificationCardContent {
+    flex-direction: column;
+  }
+}

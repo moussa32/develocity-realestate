@@ -16,6 +16,9 @@
 @import "../modules/Sell/Sell";
 @import "../modules/Sell/SellCategory";
 @import "../modules/User/Favourites";
+@import "../shared/components/Navbar/Notifications";
+@import "../shared/components/Loader";
+
 body {
   font-family: "Roboto", sans-serif;
 }

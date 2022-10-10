@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authentcatedInstance } from "../../api/constants";
 
 export const fetchSell = createAsyncThunk("sell/fetchSell", async () => {
-  const requestSell = await authentcatedInstance.get("/realstate/sell");
+  const requestSell = await authentcatedInstance.get("realstate/sell");
 
   return requestSell.data;
 });

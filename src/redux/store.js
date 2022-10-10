@@ -23,7 +23,7 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["modal", "category", "user", "footer", "sell", "notifications"],
+  blacklist: ["modal", "notifications"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -7,8 +7,8 @@ import { Link, Outlet } from "react-router-dom";
 import { fetchSell } from "../../redux/features/SellSlice";
 
 const Sell = () => {
-  const sellStatus = useSelector((state) => state.sell.status);
-  const sellCategories = useSelector((state) => state.sell.data.data.categories);
+  const sellStatus = useSelector((state) => state.sell?.status);
+  const sellCategories = useSelector((state) => state.sell?.data?.data?.categories);
 
   const dispatch = useDispatch();
   useEffect(() => {

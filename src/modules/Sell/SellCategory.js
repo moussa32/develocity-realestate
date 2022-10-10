@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import InputGroup from "react-bootstrap/InputGroup";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { homeSchema } from "../../shared/schemas/PostRealState";
@@ -30,7 +31,7 @@ const SellCategory = () => {
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{categoryName}</Breadcrumb.Item>
       </Breadcrumb>
-      <h1 className="fs-2xl border-start border-primary border-5 p-3">include some details</h1>
+      <h1 className="fs-2xl headingBorderLine p-3">include some details</h1>
       <Formik
         validationSchema={homeSchema}
         initialValues={{
@@ -167,7 +168,7 @@ const SellCategory = () => {
               {errors.title && <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>}
             </Form.Group>
             <Form.Label className="text-capitalize fs-md text-dark">Payment method</Form.Label>
-            <Form.Group className="mb-5 d-flex flex-row gap-4">
+            <Form.Group className="mb-5 d-flex flex-row gap-4 flex-wrap">
               <div
                 className={`${
                   values.payment_method === "cash" ? "customButtonWrapperSelected" : null
@@ -361,7 +362,7 @@ const SellCategory = () => {
               {currentSellCategory.options.includes("condition") && (
                 <Form.Group>
                   <Form.Label className="fs-md text-capitalize">condition</Form.Label>
-                  <div className="mb-5 d-flex flex-row gap-4">
+                  <div className="mb-5 d-flex flex-row gap-4 flex-wrap">
                     <div
                       className={`${
                         values.condition === "ready" ? "customButtonWrapperSelected" : null
@@ -401,6 +402,56 @@ const SellCategory = () => {
                   {errors.furnished && <Form.Control.Feedback type="invalid">{errors.furnished}</Form.Control.Feedback>}
                 </Form.Group>
               )}
+              {currentSellCategory.property_amentities && (
+                <Form.Group className="customMuiltSelectWrapper" controlId="property_amentities">
+                  <Form.Label className="fs-2xl headingBorderLine p-3">Property Amentities</Form.Label>
+                  {currentSellCategory.property_amentities.map(({ id, property }) => (
+                    <Form.Check
+                      key={`${id + property}`}
+                      disabled={false}
+                      className="fs-md text-dark customMuiltSelectInput"
+                      type="checkbox"
+                      name="property_amentities"
+                      label={property}
+                      value={id}
+                      onChange={handleChange}
+                      id={property}
+                      isInvalid={!!errors.property_amentities}
+                    />
+                  ))}
+                </Form.Group>
+              )}
+              {currentSellCategory.community_amentities && (
+                <Form.Group className="customMuiltSelectWrapper" controlId="community_amentities">
+                  <Form.Label className="fs-2xl headingBorderLine p-3">Community Amentities</Form.Label>
+                  {currentSellCategory.community_amentities.map(({ id, property }) => (
+                    <Form.Check
+                      key={`${id + property}`}
+                      disabled={false}
+                      className="fs-md text-dark customMuiltSelectInput"
+                      type="checkbox"
+                      name="community_amentities"
+                      label={property}
+                      value={id}
+                      onChange={handleChange}
+                      id={property}
+                      isInvalid={!!errors.community_amentities}
+                    />
+                  ))}
+                </Form.Group>
+              )}
+              <Form.Group className="mb-3" controlId="propertyDescription">
+                <Form.Label className="text-capitalize fs-md text-dark fw-normal">Description</Form.Label>
+                <Form.Control as="textarea" placeholder="type Description" rows={6} />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="propertyPrice">
+                <Form.Label className="text-capitalize fs-md text-dark fw-normal">price</Form.Label>
+
+                <InputGroup className="mb-3">
+                  <InputGroup.Text className="text-primary text-capitalize bg-transparent">USD</InputGroup.Text>
+                  <Form.Control placeholder="Type Price" aria-label="Type Price" />
+                </InputGroup>
+              </Form.Group>
             </Row>
             <Button
               className="text-white w-100 fs-md d-flex align-items-center justify-content-center gap-2"

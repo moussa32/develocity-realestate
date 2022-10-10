@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy } from "react";
-// import Home from "./modules/Home/Home";
 import Navbar from "./shared/components/Navbar/Navbar";
 import Sell from "./modules/Sell/Sell";
 import Footer from "./shared/components/Footer";

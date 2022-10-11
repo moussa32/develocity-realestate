@@ -13,8 +13,6 @@ const Navbar = () => {
   const userData = useSelector((state) => state.user);
   const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
-  console.log(isUserLoggedIn, userData);
-
   return (
     <BootstrapNavbar expand="md" bg="white" className="navbarWrapper" style={{ zIndex: 1010 }}>
       <Container>

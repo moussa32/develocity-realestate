@@ -19,7 +19,6 @@ const Sell = lazy(() => import("./modules/Sell/Sell"));
 const App = () => {
   const isNotificationsOpen = useSelector(({ notifications }) => notifications.data.isOpen);
 
-  console.log(isNotificationsOpen);
   return (
     <>
       <Router>

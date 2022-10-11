@@ -9,7 +9,6 @@ import ProtectedRoute from "./shared/components/ProtectedRoute";
 import Notifications from "./shared/components/Navbar/Notifications";
 import { useSelector } from "react-redux";
 const Home = lazy(() => import("./modules/Home/Home"));
-const Deals = lazy(() => import("./pages/Deals"));
 const SellCategory = lazy(() => import("./modules/Sell/SellCategory"));
 // const SellHome = lazy(() => import("./pages/SellHome"));
 // const View = lazy(() => import("./pages/View"));
@@ -29,7 +28,6 @@ const App = () => {
           {isNotificationsOpen && <Notifications />}
           <Routes>
             <Route index element={<Home />} />
-            <Route path="/deals" element={<Deals />} />
             <Route element={<ProtectedRoute />}>
               <Route path="sell" element={<Sell />} />
               <Route path="sell/:categoryName" element={<SellCategory />} />

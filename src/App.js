@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy } from "react";
 import Navbar from "./shared/components/Navbar/Navbar";
-import Sell from "./modules/Sell/Sell";
 import Footer from "./shared/components/Footer";
 import "./styles/custom.scss";
 import PropertyDetails from "./modules/ViewProperty/PropertyDetails";
@@ -15,6 +14,7 @@ const SellCategory = lazy(() => import("./modules/Sell/SellCategory"));
 const Details = lazy(() => import("./pages/Details"));
 const Favourites = lazy(() => import("./modules/User/Favourites"));
 const HotDeals = lazy(() => import("./modules/User/HotDeals"));
+const Sell = lazy(() => import("./modules/Sell/Sell"));
 
 const App = () => {
   const isNotificationsOpen = useSelector(({ notifications }) => notifications.data.isOpen);

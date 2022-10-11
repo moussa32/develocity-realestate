@@ -13,13 +13,13 @@ let persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Suspense fallback={<Loader />}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <Suspense fallback={<Loader />}>
         <PersistGate loading={null} persistor={persistor}>
           <App />
         </PersistGate>
-      </Provider>
-    </Suspense>
+      </Suspense>
+    </Provider>
   </React.StrictMode>
 );
 

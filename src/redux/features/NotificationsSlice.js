@@ -17,9 +17,11 @@ const NotificationsSlice = createSlice({
   },
   reducers: {
     closeNotificationsMenu: (state) => {
+      console.log("This comes from redux", state);
       state.data.isOpen = false;
     },
     toggleNotificationsMenu: (state) => {
+      console.log("Current Toggle value = ", !state.data.isOpen);
       state.data.isOpen = !state.data.isOpen;
     },
   },

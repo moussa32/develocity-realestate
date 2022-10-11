@@ -4,13 +4,16 @@ import Logo from "../../../assets/images/logo.png";
 import NavLinks from "./NavLinks";
 import NavButtons from "./NavButtons";
 import { useSelector } from "react-redux";
-import UserActions from "./UserActions";
 import { Link } from "react-router-dom";
-import Search from "./Search";
+import { lazy } from "react";
+const Search = lazy(() => import("./Search"));
+const UserActions = lazy(() => import("./UserActions"));
 
 const Navbar = () => {
   const userData = useSelector((state) => state.user);
   const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
+  console.log(isUserLoggedIn, userData);
 
   return (
     <BootstrapNavbar expand="md" bg="white" className="navbarWrapper" style={{ zIndex: 1010 }}>

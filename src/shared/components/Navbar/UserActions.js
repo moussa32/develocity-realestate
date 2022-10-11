@@ -18,9 +18,11 @@ const UserActions = ({ userData }) => {
   const { username, image } = userData;
 
   const handleLogout = async () => {
-    const logoutRequest = await globalInstance.post("auth/logout");
+    await globalInstance.post("auth/logout");
     dispatch(removeUser());
   };
+
+  const toggleNotifications = () => dispatch(toggleNotificationsMenu());
 
   return (
     <div className="d-flex gap-3 align-items-center ms-4">
@@ -28,7 +30,7 @@ const UserActions = ({ userData }) => {
       <MdOutlineNotificationsNone
         className="text-primary opacity-75"
         size={"2.6rem"}
-        onClick={() => dispatch(toggleNotificationsMenu())}
+        onClick={toggleNotifications}
         role="button"
       />
       <Dropdown>

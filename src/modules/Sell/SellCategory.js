@@ -11,9 +11,7 @@ import { homeSchema } from "../../shared/schemas/PostRealState";
 import { Formik } from "formik";
 import UseAnimations from "react-useanimations";
 import infinity from "react-useanimations/lib/infinity";
-import PlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
-import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
-import { useRef, useCallback } from "react";
+import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 
 const SellCategory = () => {
   const { categoryName } = useParams();

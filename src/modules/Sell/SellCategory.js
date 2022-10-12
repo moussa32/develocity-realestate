@@ -12,17 +12,90 @@ import { Formik } from "formik";
 import UseAnimations from "react-useanimations";
 import infinity from "react-useanimations/lib/infinity";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import useOnclickOutside from "react-cool-onclickoutside";
+import { useState } from "react";
+import { TbCameraPlus } from "react-icons/tb";
+import { authentcatedInstance } from "../../api/constants";
 
 const SellCategory = () => {
   const { categoryName } = useParams();
   const currentSellCategory = useSelector((state) =>
     state.sell.data.data.categories.find((category) => category.name === categoryName)
   );
-  console.log(categoryName, currentSellCategory);
+  const user = useSelector((state) => state.user);
+  const [location, setLocation] = useState({
+    lat: "",
+    lng: "",
+  });
+  const handleSubmitRealState = async (values, methods) => {
+    const realstatePostData = {
+      ...values,
+      ...location,
+      images: [],
+      category_id: currentSellCategory.id,
+    };
+    const { setSubmitting } = methods;
 
-  const handleSubmitRealState = (values, methods) => {
-    console.log(values, methods);
+    await authentcatedInstance
+      .post("realstates", realstatePostData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+    setSubmitting(false);
   };
+
+  const {
+    ready,
+    value: selectedLocation,
+    suggestions: { status, data },
+    setValue: setSelectedLocation,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    debounce: 300,
+  });
+
+  const ref = useOnclickOutside(() => {
+    // When user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
+    clearSuggestions();
+  });
+
+  const handleAddLocation = (e) => {
+    // Update the keyword of the input element
+    setSelectedLocation(e.target.value);
+  };
+
+  const handleSelect =
+    ({ description }, setFieldValue) =>
+    async () => {
+      // When user selects a place, we can replace the keyword without request data from API
+      // by setting the second parameter to "false"
+      setSelectedLocation(description, false);
+      setFieldValue("location", description);
+      clearSuggestions();
+
+      // Get latitude and longitude via utility functions
+      await getGeocode({ address: description }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+
+        setLocation({ lat, lng });
+      });
+    };
+
+  const renderSuggestions = (setFieldValue) =>
+    data.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={place_id} onClick={handleSelect(suggestion, setFieldValue)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
 
   return (
     <Container className="my-5">
@@ -36,116 +109,107 @@ const SellCategory = () => {
       <Formik
         validationSchema={homeSchema}
         initialValues={{
-          property: "",
-          title: "",
-          rental_duration: "",
-          payment_method: "",
+          title: undefined,
+          property: undefined,
+          payment_method: undefined,
           bedrooms: undefined,
           bathrooms: undefined,
           size: undefined,
           floor: undefined,
           furnished: undefined,
-          condition: "",
+          condition: undefined,
+          desc: undefined,
+          location: undefined,
+          seller_name: undefined,
+          seller_phone: undefined,
+          contact_method: undefined,
         }}
         onSubmit={handleSubmitRealState}
-        validateOnChange={false}
-        validateOnBlur={true}
+        validateOnChange={true}
+        validateOnBlur={false}
       >
-        {({ handleSubmit, handleChange, handleBlur, values, errors, isSubmitting, setFieldValue }) => (
+        {({ handleSubmit, handleChange, handleBlur, values, errors, isSubmitting, setFieldValue, touched }) => (
           <Form noValidate onSubmit={handleSubmit} className="mt-5">
             <Form.Label className="text-capitalize fs-md text-dark">Property</Form.Label>
-            {console.log(values)}
             <Form.Group className="mb-4 d-flex flex-row gap-4">
-              <div
-                className={`${values.property === "rent" ? "customButtonWrapperSelected" : null} customButtonWrapper`}
-              >
-                <Form.Check
-                  disabled={false}
-                  className="fs-md text-dark"
-                  type="radio"
-                  name="property"
-                  label="Rent"
-                  value="rent"
-                  onChange={handleChange}
-                  id="rent"
-                  isInvalid={!!errors.property}
-                />
-              </div>
-              <div
-                className={`${values.property === "sell" ? "customButtonWrapperSelected" : null} customButtonWrapper`}
-              >
-                <Form.Check
-                  isInvalid={!!errors.property}
-                  onChange={(event) => {
-                    handleChange(event);
-                    setFieldValue("rental_duration", null);
-                  }}
-                  disabled={false}
-                  type="radio"
-                  name="property"
-                  className="fs-md text-dark"
-                  label="Sell"
-                  value="sell"
-                  id="sell"
-                />
-              </div>
-              {errors.property && <Form.Control.Feedback type="invalid">{errors.property}</Form.Control.Feedback>}
+              <Form.Check
+                isInvalid={touched.property && !!errors.property}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                type="radio"
+                name="property"
+                className={`fs-md text-dark customButtonWrapper ${
+                  values.property === "rent" ? "customButtonWrapperSelected" : ""
+                } ${touched.property && errors.property && "invalidButtonWrapper"}`}
+                label="Rent"
+                value="rent"
+                id="rent"
+              />
+              <Form.Check
+                isInvalid={touched.property && !!errors.property}
+                onChange={(event) => {
+                  handleChange(event);
+                  setFieldValue("rental_duration", null);
+                }}
+                disabled={isSubmitting}
+                type="radio"
+                name="property"
+                className={`fs-md text-dark customButtonWrapper ${
+                  values.property === "sell" ? "customButtonWrapperSelected" : ""
+                } ${touched.property && errors.property && "invalidButtonWrapper"}`}
+                label="Sell"
+                value="sell"
+                id="sell"
+              />
             </Form.Group>
+            {touched.property && errors.property && (
+              <Form.Control.Feedback type="invalid" className="d-block mt-0">
+                {errors.property}
+              </Form.Control.Feedback>
+            )}
             {values.property === "rent" && (
               <>
                 <Form.Label className="text-capitalize fs-md text-dark mt-4">Rental duration</Form.Label>
-                <Form.Group className="mb-4 d-flex flex-row gap-4">
-                  <div
-                    className={`${
-                      values.rental_duration === "daily" ? "customButtonWrapperSelected" : null
-                    } customButtonWrapper`}
-                  >
-                    <Form.Check
-                      disabled={false}
-                      className="fs-md text-dark"
-                      type="radio"
-                      name="rental_duration"
-                      label="Daily"
-                      value="daily"
-                      onChange={handleChange}
-                      id="daily"
-                      isInvalid={!!errors.rental_duration}
-                    />
-                  </div>
-                  <div
-                    className={`${
-                      values.rental_duration === "monthly" ? "customButtonWrapperSelected" : null
-                    } customButtonWrapper`}
-                  >
-                    <Form.Check
-                      isInvalid={!!errors.rental_duration}
-                      onChange={handleChange}
-                      disabled={false}
-                      type="radio"
-                      name="rental_duration"
-                      className="fs-md text-dark"
-                      label="Monthly"
-                      value="monthly"
-                      id="monthly"
-                    />
-                  </div>
-                  <div
-                    className={`${
-                      values.rental_duration === "yearly" ? "customButtonWrapperSelected" : null
-                    } customButtonWrapper`}
-                  >
-                    <Form.Check
-                      isInvalid={!!errors.rental_duration}
-                      onChange={handleChange}
-                      disabled={false}
-                      type="radio"
-                      name="rental_duration"
-                      className="fs-md text-dark"
-                      label="Yearly"
-                      value="yearly"
-                      id="yearly"
-                    />
-                  </div>
+                <Form.Group className="mb-4 d-flex flex-row gap-4 flex-wrap">
+                  <Form.Check
+                    isInvalid={touched.rental_duration && !!errors.rental_duration}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    type="radio"
+                    name="rental_duration"
+                    className={`fs-md text-dark customButtonWrapper ${
+                      values.rental_duration === "daily" ? "customButtonWrapperSelected" : ""
+                    } ${touched.rental_duration && errors.rental_duration && "invalidButtonWrapper"}`}
+                    label="Daily"
+                    value="daily"
+                    id="daily"
+                  />
+                  <Form.Check
+                    isInvalid={touched.rental_duration && !!errors.rental_duration}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    type="radio"
+                    name="rental_duration"
+                    className={`fs-md text-dark customButtonWrapper ${
+                      values.rental_duration === "monthly" ? "customButtonWrapperSelected" : ""
+                    } ${touched.rental_duration && errors.rental_duration && "invalidButtonWrapper"}`}
+                    label="Monthly"
+                    value="monthly"
+                    id="monthly"
+                  />
+                  <Form.Check
+                    isInvalid={touched.rental_duration && !!errors.rental_duration}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    type="radio"
+                    name="rental_duration"
+                    className={`fs-md text-dark customButtonWrapper ${
+                      values.rental_duration === "yearly" ? "customButtonWrapperSelected" : ""
+                    } ${touched.rental_duration && errors.rental_duration && "invalidButtonWrapper"}`}
+                    label="Yearly"
+                    value="yearly"
+                    id="yearly"
+                  />
                 </Form.Group>
               </>
             )}
@@ -160,67 +224,57 @@ const SellCategory = () => {
                 aria-label="title"
                 type="text"
                 className={`${
-                  !!errors.title ? "border-danger" : "border-secondary"
+                  touched.title && !!errors.title ? "border-danger" : "border-secondary"
                 } bg-transparent border-1 shadow-none fs-sm postRealStateTextInput`}
                 aria-describedby="email-input"
-                isInvalid={!!errors.title}
+                isInvalid={touched.title && !!errors.title}
                 disabled={isSubmitting}
               />
-              {errors.title && <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>}
+              {touched.title && errors.title && (
+                <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
+              )}
             </Form.Group>
             <Form.Label className="text-capitalize fs-md text-dark">Payment method</Form.Label>
             <Form.Group className="mb-5 d-flex flex-row gap-4 flex-wrap">
-              <div
-                className={`${
-                  values.payment_method === "cash" ? "customButtonWrapperSelected" : null
-                } customButtonWrapper`}
-              >
-                <Form.Check
-                  disabled={false}
-                  className="fs-md text-dark text-capitalize"
-                  type="radio"
-                  name="payment_method"
-                  label="Cash"
-                  value="cash"
-                  onChange={handleChange}
-                  isInvalid={!!errors.payment_method}
-                  id="cash"
-                />
-              </div>
-              <div
-                className={`${
-                  values.payment_method === "cheque" ? "customButtonWrapperSelected" : null
-                } customButtonWrapper`}
-              >
-                <Form.Check
-                  isInvalid={!!errors.payment_method}
-                  onChange={handleChange}
-                  disabled={false}
-                  type="radio"
-                  name="payment_method"
-                  className="fs-md text-dark text-capitalize"
-                  label="cheque"
-                  value="cheque"
-                  id="cheque"
-                />
-              </div>
-              <div
-                className={`${
-                  values.payment_method === "crypto" ? "customButtonWrapperSelected" : null
-                } customButtonWrapper`}
-              >
-                <Form.Check
-                  isInvalid={!!errors.payment_method}
-                  onChange={handleChange}
-                  disabled={false}
-                  type="radio"
-                  name="payment_method"
-                  className="fs-md text-dark text-capitalize"
-                  label="crypto currency"
-                  value="crypto"
-                  id="crypto"
-                />
-              </div>
+              <Form.Check
+                isInvalid={touched.payment_method && !!errors.payment_method}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                type="radio"
+                name="payment_method"
+                className={`fs-md text-dark customButtonWrapper ${
+                  values.payment_method === "cash" ? "customButtonWrapperSelected" : ""
+                } ${touched.payment_method && errors.payment_method && "invalidButtonWrapper"}`}
+                label="Cash"
+                value="cash"
+                id="cash"
+              />
+              <Form.Check
+                isInvalid={touched.payment_method && !!errors.payment_method}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                type="radio"
+                name="payment_method"
+                className={`fs-md text-dark customButtonWrapper ${
+                  values.payment_method === "cheque" ? "customButtonWrapperSelected" : ""
+                } ${touched.payment_method && errors.payment_method && "invalidButtonWrapper"}`}
+                label="Cheque"
+                value="cheque"
+                id="cheque"
+              />
+              <Form.Check
+                isInvalid={touched.payment_method && !!errors.payment_method}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                type="radio"
+                name="payment_method"
+                className={`fs-md text-dark customButtonWrapper ${
+                  values.payment_method === "crypto" ? "customButtonWrapperSelected" : ""
+                } ${touched.payment_method && errors.payment_method && "invalidButtonWrapper"}`}
+                label="Crypto Currency"
+                value="crypto"
+                id="crypto"
+              />
             </Form.Group>
             <Row>
               {currentSellCategory.options.includes("bedrooms") && (
@@ -318,90 +372,70 @@ const SellCategory = () => {
                 </Col>
               )}
               {currentSellCategory.options.includes("furnished") && (
-                <Form.Group>
-                  <Form.Label className="fs-md text-capitalize">furnished</Form.Label>
-                  <div className="mb-5 d-flex flex-row gap-4">
-                    <div
-                      className={`${
-                        values.furnished === "1" ? "customButtonWrapperSelected" : null
-                      } customButtonWrapper`}
-                    >
-                      <Form.Check
-                        disabled={false}
-                        className="fs-md text-dark text-capitalize"
-                        type="radio"
-                        name="furnished"
-                        label="Yes"
-                        value="1"
-                        onChange={handleChange}
-                        isInvalid={!!errors.furnished}
-                        id="yes"
-                      />
-                    </div>
-                    <div
-                      className={`${
-                        values.furnished === "0" ? "customButtonWrapperSelected" : null
-                      } customButtonWrapper`}
-                    >
-                      <Form.Check
-                        isInvalid={!!errors.furnished}
-                        onChange={handleChange}
-                        disabled={false}
-                        type="radio"
-                        name="furnished"
-                        className="fs-md text-dark text-capitalize"
-                        label="No"
-                        value="0"
-                        id="no"
-                      />
-                    </div>
-                  </div>
-
-                  {errors.furnished && <Form.Control.Feedback type="invalid">{errors.furnished}</Form.Control.Feedback>}
-                </Form.Group>
+                <>
+                  <Form.Label className="fs-md text-capitalize flex-fill w-100">furnished</Form.Label>
+                  <Form.Group className="mb-4 d-flex flex-row gap-4">
+                    <Form.Check
+                      isInvalid={touched.furnished && !!errors.furnished}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      type="radio"
+                      name="furnished"
+                      className={`fs-md text-dark customButtonWrapper ${
+                        values.furnished === "1" ? "customButtonWrapperSelected" : ""
+                      } ${touched.furnished && errors.furnished && "invalidButtonWrapper"}`}
+                      label="Yes"
+                      value="1"
+                      id="yes"
+                    />
+                    <Form.Check
+                      isInvalid={touched.furnished && !!errors.furnished}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      type="radio"
+                      name="furnished"
+                      className={`fs-md text-dark customButtonWrapper ${
+                        values.furnished === "0" ? "customButtonWrapperSelected" : ""
+                      } ${touched.furnished && errors.furnished && "invalidButtonWrapper"}`}
+                      label="No"
+                      value="0"
+                      id="no"
+                    />
+                  </Form.Group>
+                </>
               )}
               {currentSellCategory.options.includes("condition") && (
-                <Form.Group>
-                  <Form.Label className="fs-md text-capitalize">condition</Form.Label>
-                  <div className="mb-5 d-flex flex-row gap-4 flex-wrap">
-                    <div
-                      className={`${
-                        values.condition === "ready" ? "customButtonWrapperSelected" : null
-                      } customButtonWrapper`}
-                    >
-                      <Form.Check
-                        disabled={false}
-                        className="fs-md text-dark text-capitalize"
-                        type="radio"
-                        name="condition"
-                        label="ready"
-                        value="ready"
-                        onChange={handleChange}
-                        isInvalid={!!errors.condition}
-                        id="ready"
-                      />
-                    </div>
-                    <div
-                      className={`${
-                        values.condition === "under_construction" ? "customButtonWrapperSelected" : null
-                      } customButtonWrapper`}
-                    >
-                      <Form.Check
-                        isInvalid={!!errors.condition}
-                        onChange={handleChange}
-                        disabled={false}
-                        type="radio"
-                        name="condition"
-                        className="fs-md text-dark text-capitalize"
-                        label="Under Construction"
-                        value="under_construction"
-                        id="under_construction"
-                      />
-                    </div>
-                  </div>
-
-                  {errors.furnished && <Form.Control.Feedback type="invalid">{errors.furnished}</Form.Control.Feedback>}
-                </Form.Group>
+                <>
+                  <Form.Label className="fs-md text-capitalize flex-fill w-100">condition</Form.Label>
+                  <Form.Group className="mb-4 d-flex flex-row gap-4 flex-wrap">
+                    <Form.Check
+                      isInvalid={touched.condition && !!errors.condition}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      type="radio"
+                      name="condition"
+                      className={`fs-md text-dark customButtonWrapper ${
+                        values.condition === "ready" ? "customButtonWrapperSelected" : ""
+                      } ${touched.condition && errors.condition && "invalidButtonWrapper"}`}
+                      label="ready"
+                      value="ready"
+                      id="ready"
+                    />
+                    <Form.Check
+                      isInvalid={touched.condition && !!errors.condition}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      type="radio"
+                      name="condition"
+                      className={`fs-md text-dark customButtonWrapper ${
+                        values.condition === "under_construction" ? "customButtonWrapperSelected" : ""
+                      } ${touched.condition && errors.condition && "invalidButtonWrapper"}`}
+                      label="Under Construction"
+                      value="under_construction"
+                      id="under_construction"
+                    />
+                  </Form.Group>
+                </>
               )}
               {currentSellCategory.property_amentities && (
                 <Form.Group className="customMuiltSelectWrapper" controlId="property_amentities">
@@ -443,17 +477,144 @@ const SellCategory = () => {
               )}
               <Form.Group className="mb-3" controlId="propertyDescription">
                 <Form.Label className="text-capitalize fs-md text-dark fw-normal">Description</Form.Label>
-                <Form.Control as="textarea" placeholder="type Description" rows={6} />
+                <Form.Control
+                  isInvalid={touched.desc && !!errors.desc}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  as="textarea"
+                  className="fs-md px-4 py-3"
+                  name="desc"
+                  placeholder="Type Description"
+                  rows={6}
+                />
+                <small className="text-primary fw-normal fs-sm mt-2 d-block">
+                  Include condition, features and reason for selling
+                </small>
               </Form.Group>
               <Form.Group className="mb-3" controlId="propertyPrice">
                 <Form.Label className="text-capitalize fs-md text-dark fw-normal">price</Form.Label>
 
                 <InputGroup className="mb-3">
-                  <InputGroup.Text className="text-primary text-capitalize bg-transparent">USD</InputGroup.Text>
-                  <Form.Control placeholder="Type Price" aria-label="Type Price" />
+                  <InputGroup.Text className="text-primary text-capitalize bg-transparent customGroupInputText">
+                    USD
+                  </InputGroup.Text>
+                  <Form.Control placeholder="Type Price" aria-label="Type Price" className="postRealStateTextInput" />
                 </InputGroup>
               </Form.Group>
-              <div className="mapBlock"></div>
+              <Form.Group className="mb-5" ref={ref} controlId="location">
+                <Form.Label className="text-capitalize fs-md text-dark">add location</Form.Label>
+                <Form.Control
+                  placeholder="type location"
+                  name="location"
+                  onBlur={handleBlur}
+                  value={selectedLocation}
+                  onChange={handleAddLocation}
+                  type="text"
+                  className={`${
+                    !!errors.location ? "border-danger" : "border-secondary"
+                  } bg-transparent border-1 shadow-none fs-sm postRealStateTextInput`}
+                  aria-describedby="location-input"
+                  disabled={!ready}
+                  isInvalid={!!errors.location}
+                />
+                {errors.location && <Form.Control.Feedback type="invalid">{errors.location}</Form.Control.Feedback>}
+                {status === "OK" && <ul className="list-unstyled">{renderSuggestions(setFieldValue)}</ul>}
+              </Form.Group>
+              <div className="mb-5 uploadRealStateImageSection">
+                <Form.Label className="fs-2xl headingBorderLine p-3 text-capitalize">upload up to 15 photos</Form.Label>
+                {Array.from(Array(16).keys()).map((item, index) => (
+                  <div
+                    className={`uploadRealStateImageWrapper ${index === 0 && "featuredUploadRealStateImageWrapper"}`}
+                  >
+                    <input type="file" className="" />
+                    <div className="uploadRealStateImageText">
+                      <TbCameraPlus />
+                      {index === 0 && <label className="text-capitalize fs-2xl">choose your cover photo</label>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Form.Group>
+                <Form.Label className="fs-2xl headingBorderLine p-3 text-capitalize">your deatails</Form.Label>
+                <div className="seller-info">
+                  <img src={user.image} alt={user.username} title={user.username} width={126} height={126} />
+                  <Row className="seller-inputs">
+                    <Form.Label className="fs-md p-1 ps-0 text-capitalize">Name</Form.Label>
+                    <Form.Control
+                      placeholder="Type Your Name"
+                      onChange={handleChange}
+                      name="seller_name"
+                      onBlur={handleBlur}
+                      value={values.seller_name}
+                      aria-label="seller_name"
+                      type="text"
+                      className={`${
+                        touched.seller_name && !!errors.seller_name ? "border-danger" : "border-secondary"
+                      } bg-transparent border-1 shadow-none fs-sm postRealStateTextInput mb-3`}
+                      aria-describedby="seller-name"
+                      isInvalid={touched.seller_name && !!errors.seller_name}
+                      disabled={isSubmitting}
+                    />
+                    <Form.Label className="fs-md p-1 ps-0 text-capitalize">mobile number</Form.Label>
+                    <InputGroup className="px-0">
+                      <InputGroup.Text className="text-primary text-capitalize bg-transparent customGroupInputText">
+                        +961
+                      </InputGroup.Text>
+                      <Form.Control
+                        isInvalid={touched.seller_phone && !!errors.seller_phone}
+                        onChange={handleChange}
+                        disabled={isSubmitting}
+                        placeholder="Phone Number"
+                        className="postRealStateTextInput"
+                        style={{ background: "#FCFCFC" }}
+                        id="seller_phone"
+                      />
+                    </InputGroup>
+                    <Form.Label className="fs-md p-1 ps-0 text-capitalize form-label mt-3">contact methode</Form.Label>
+                    <Form.Group className="mb-4 d-flex flex-row gap-4 ps-0 flex-wrap">
+                      <Form.Check
+                        isInvalid={touched.contact_method && !!errors.contact_method}
+                        onChange={handleChange}
+                        disabled={isSubmitting}
+                        type="radio"
+                        name="contact_method"
+                        className={`fs-md text-dark customButtonWrapper ${
+                          values.contact_method === "phone" ? "customButtonWrapperSelected" : ""
+                        } ${touched.contact_method && errors.contact_method && "invalidButtonWrapper"}`}
+                        label="Phone Number"
+                        value="phone"
+                        id="phone number"
+                      />
+                      <Form.Check
+                        isInvalid={touched.contact_method && !!errors.contact_method}
+                        onChange={handleChange}
+                        disabled={isSubmitting}
+                        type="radio"
+                        name="contact_method"
+                        className={`fs-md text-dark customButtonWrapper ${
+                          values.contact_method === "chat" ? "customButtonWrapperSelected" : ""
+                        } ${touched.contact_method && errors.contact_method && "invalidButtonWrapper"}`}
+                        label="Real State Chat"
+                        value="chat"
+                        id="real_state_chat"
+                      />
+                      <Form.Check
+                        isInvalid={touched.contact_method && !!errors.contact_method}
+                        onChange={handleChange}
+                        disabled={isSubmitting}
+                        type="radio"
+                        name="contact_method"
+                        className={`fs-md text-dark customButtonWrapper ${
+                          values.contact_method === "both" ? "customButtonWrapperSelected" : ""
+                        } ${touched.contact_method && errors.contact_method && "invalidButtonWrapper"}`}
+                        label="Both"
+                        value="both"
+                        id="both"
+                      />
+                    </Form.Group>
+                  </Row>
+                </div>
+              </Form.Group>
             </Row>
             <Button
               className="text-white w-100 fs-md d-flex align-items-center justify-content-center gap-2"
@@ -468,7 +629,6 @@ const SellCategory = () => {
           </Form>
         )}
       </Formik>
-      {categoryName}
     </Container>
   );
 };

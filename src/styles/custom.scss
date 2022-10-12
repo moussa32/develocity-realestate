@@ -31,6 +31,11 @@ body {
   min-height: 100vh;
 }
 
+.headingBorderLine {
+  border-left: 12px $primary solid;
+  border-radius: 3px;
+}
+
 .dropdown-toggle::after {
   display: none !important;
 }

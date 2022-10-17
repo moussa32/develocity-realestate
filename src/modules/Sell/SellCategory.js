@@ -27,23 +27,7 @@ const SellCategory = () => {
     lat: "",
     lng: "",
   });
-  const handleSubmitRealState = async (values, methods) => {
-    const realstatePostData = {
-      ...values,
-      ...location,
-      images: [],
-      category_id: currentSellCategory.id,
-    };
-    const { setSubmitting } = methods;
-
-    await authentcatedInstance
-      .post("realstates", realstatePostData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => console.log(error));
-    setSubmitting(false);
-  };
+  const [realstateImages, setRealstateImages] = useState([]);
 
   const {
     ready,
@@ -96,6 +80,33 @@ const SellCategory = () => {
         </li>
       );
     });
+
+  const handleImage = (indexImage, event) => {
+    const realstateImagesClone = [...realstateImages];
+    realstateImagesClone[indexImage] = event.target.files[0];
+
+    setRealstateImages(realstateImagesClone);
+  };
+
+  const handleSubmitRealState = async (values, methods) => {
+    const filteredImages = realstateImages.filter((item) => item);
+
+    const realstatePostData = {
+      ...values,
+      ...location,
+      images: filteredImages,
+      category_id: currentSellCategory.id,
+    };
+    const { setSubmitting } = methods;
+
+    await authentcatedInstance
+      .post("realstates", realstatePostData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+    setSubmitting(false);
+  };
 
   return (
     <Container className="my-5">
@@ -525,8 +536,16 @@ const SellCategory = () => {
                 {Array.from(Array(16).keys()).map((item, index) => (
                   <div
                     className={`uploadRealStateImageWrapper ${index === 0 && "featuredUploadRealStateImageWrapper"}`}
+                    key={`realstateImage${index}`}
                   >
-                    <input type="file" className="" />
+                    {realstateImages[index] && (
+                      <img
+                        className="w-100 h-100 position-absolute top-0"
+                        src={URL.createObjectURL(realstateImages[index])}
+                        style={{ objectFit: "cover" }}
+                      />
+                    )}
+                    <input type="file" onChange={(event) => handleImage(index, event)} />
                     <div className="uploadRealStateImageText">
                       <TbCameraPlus />
                       {index === 0 && <label className="text-capitalize fs-2xl">choose your cover photo</label>}

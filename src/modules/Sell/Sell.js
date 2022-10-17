@@ -19,7 +19,7 @@ const Sell = () => {
 
   return (
     <Container>
-      <h1 className="border-start border-3 ps-4 border-primary fs-2xl fw-normal my-5">Select Category</h1>
+      <h1 className="p-3 fs-2xl fw-normal my-5 headingBorderLine">Select Category</h1>
       <Row className="selectCategoryWrapper mb-5">
         {sellStatus === "success" &&
           sellCategories.map(({ id, name, image }) => (

@@ -1,0 +1,59 @@
+.thumbs-wrapper {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.carousel {
+  .thumbs {
+    padding-left: 0;
+  }
+  .slide {
+    img {
+      border-radius: 10px;
+    }
+  }
+  .thumb {
+    width: 267px !important;
+    border-radius: 10px;
+    img {
+      height: 182px;
+      border-radius: 10px;
+    }
+  }
+}
+
+.carousel .control-arrow,
+.carousel.carousel-slider .control-arrow {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 14, 15, 0.59) 0%,
+    rgba(12, 14, 15, 0.59) 0.01%,
+    rgba(12, 14, 15, 0.57) 100%
+  ) !important;
+  width: 50px !important;
+}
+
+.instructions-list {
+  padding: 0;
+}
+
+.instructions-item {
+  display: flex;
+  line-height: 28px;
+  .custom-marker {
+    background-color: $primary;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    padding-right: 12px;
+  }
+  p {
+    word-break: break-word;
+  }
+  gap: 12px;
+  align-items: baseline;
+  color: #575757;
+  margin: 32px 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

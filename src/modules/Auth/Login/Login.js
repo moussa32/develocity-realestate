@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCloseModal } from "../../../redux/features/ModalSlice";
 import { IoMdLock } from "react-icons/io";
@@ -6,7 +6,7 @@ import { MdEmail } from "react-icons/md";
 import { Formik } from "formik";
 import { authentcatedInstance } from "../../../api/constants";
 import { setUser } from "../../../redux/features/UserSlice";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import loginSchema from "../../../shared/schemas/LoginSchema";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -60,7 +60,7 @@ const Login = () => {
           validateOnChange={true}
           validateOnBlur={false}
         >
-          {({ handleSubmit, handleChange, handleBlur, values, touched, isValid, errors, isSubmitting }) => (
+          {({ handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="email-input">
                 <Form.Label>Email</Form.Label>
@@ -82,13 +82,15 @@ const Login = () => {
                     aria-label="Email"
                     type="email"
                     className={`${
-                      !!errors.email ? "border-danger" : "border-primary"
+                      !!errors.email && touched.email ? "border-danger" : "border-primary"
                     } bg-transparent border-start-0 border-1 shadow-none fs-sm formInput`}
                     aria-describedby="email-input"
-                    isInvalid={!!errors.email}
+                    isInvalid={!!errors.email && touched.email}
                     disabled={isSubmitting}
                   />
-                  {errors.email && <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>}
+                  {errors.email && touched.email && (
+                    <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
               <Form.Group controlId="password-input">
@@ -110,13 +112,15 @@ const Login = () => {
                     aria-label="Password"
                     type="password"
                     className={`${
-                      !!errors.password ? "border-danger" : "border-primary"
+                      !!errors.password && touched.password ? "border-danger" : "border-primary"
                     } bg-transparent border-start-0 border-1 shadow-none formInput fs-sm`}
                     aria-describedby="password-input"
-                    isInvalid={!!errors.password}
+                    isInvalid={!!errors.password && touched.password}
                     disabled={isSubmitting}
                   />
-                  {errors.password && <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>}
+                  {errors.password && touched.password && (
+                    <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
               <Button className="text-primary bg-transparent p-0 mb-4 ms-auto d-block border-0">

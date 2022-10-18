@@ -2,8 +2,16 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 import { BsTelephoneFill } from "react-icons/bs";
 import styles from "./ThirdPartyButtons.module.scss";
+import { useDispatch } from "react-redux";
+import { setShowModal } from "../../redux/features/ModalSlice";
 
 const ThirdPartyButtons = () => {
+  const dispatch = useDispatch();
+
+  const handleOpenPhoneModal = () => {
+    dispatch(setShowModal("phone"));
+  };
+
   return (
     <div className="d-flex justify-content-center align-items-center mx-auto gap-4 mt-4">
       <button className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}>
@@ -12,7 +20,10 @@ const ThirdPartyButtons = () => {
       <button className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}>
         <FaFacebookF className={`${styles.thirdPartyIcon} ${styles.facebookIcon}`} />
       </button>
-      <button className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}>
+      <button
+        className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}
+        onClick={handleOpenPhoneModal}
+      >
         <BsTelephoneFill className={`${styles.thirdPartyIcon}`} />
       </button>
     </div>

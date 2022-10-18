@@ -1,11 +1,9 @@
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setShowModal } from "../../../redux/features/ModalSlice";
-// import LoginModal from "../../../modules/Auth/Login/Login";
-// import SignupModal from "../../../modules/Auth/Signup/Signup";
-// import VerifyCode from "../../../modules/Auth/VerifyCode";
 import { lazy } from "react";
 const LoginModal = lazy(() => import("../../../modules/Auth/Login/Login"));
+const PhoneModal = lazy(() => import("../../../modules/Auth/Phone/Phone"));
 const SignupModal = lazy(() => import("../../../modules/Auth/Signup/Signup"));
 const VerifyCode = lazy(() => import("../../../modules/Auth/VerifyCode"));
 
@@ -29,6 +27,7 @@ const NavButtons = () => {
       </Button>
       <LoginModal />
       <SignupModal />
+      <PhoneModal />
       <VerifyCode />
     </section>
   );

@@ -21,6 +21,7 @@
 @import "../modules/User/UserPages";
 @import "../modules/User/Pagination";
 @import "../modules/ViewProperty/PropertyDetails.scss";
+@import "../modules/Search/Search.scss";
 
 @include media-breakpoint-down(lg) {
   .fs-sm {

@@ -7,6 +7,7 @@ import PropertyDetails from "./modules/ViewProperty/PropertyDetails";
 import ProtectedRoute from "./shared/components/ProtectedRoute";
 import Notifications from "./shared/components/Navbar/Notifications";
 import { useSelector } from "react-redux";
+import Search from "./modules/Search/Search";
 const Home = lazy(() => import("./modules/Home/Home"));
 const SellCategory = lazy(() => import("./modules/Sell/SellCategory"));
 // const SellHome = lazy(() => import("./pages/SellHome"));
@@ -32,6 +33,7 @@ const App = () => {
               <Route path="sell/:categoryName" element={<SellCategory />} />
               <Route path="favourite" element={<Favourites />} />
               <Route path="hot-deals" element={<HotDeals />} />
+              <Route path="search" element={<Search />} />
             </Route>
             <Route path="/view/:propertyID" element={<PropertyDetails />} />
             <Route path="/details" element={<Details />} />

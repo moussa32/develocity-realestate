@@ -41,8 +41,8 @@ const PropertyCard = ({ info }) => {
           {is_hot_deal === 1 && (
             <Badge
               bg="primary"
-              className="fs-xs bg-opacity-15 text-primary fw-normal text-capitalize d-flex align-items-center justify-content-center"
-              style={{ width: "86px", height: "30px" }}
+              className="fs-xs bg-opacity-15 text-primary fw-normal text-capitalize d-flex align-items-center justify-content-center propertyBade"
+              style={{ width: "86px", height: "30px", marginLeft: "auto", marginRight: "20px" }}
             >
               hot deals
             </Badge>

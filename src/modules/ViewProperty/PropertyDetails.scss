@@ -57,3 +57,16 @@
     margin-bottom: 0;
   }
 }
+
+@include media-breakpoint-down(lg) {
+  .sellerDescription {
+    flex-direction: column;
+    align-items: center;
+    img {
+      margin-right: 0;
+    }
+    div {
+      align-items: center;
+    }
+  }
+}

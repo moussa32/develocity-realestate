@@ -89,20 +89,17 @@ const SellCategory = () => {
   };
 
   const handleSubmitRealState = async (values, methods) => {
-    const filteredImages = realstateImages.filter((item) => item);
-
-    const realstatePostData = {
-      ...values,
-      ...location,
-      images: filteredImages,
-      category_id: currentSellCategory.id,
-    };
     const { setSubmitting } = methods;
 
     await authentcatedInstance
-      .post("realstates", realstatePostData)
+      .post("realstates", {
+        ...values,
+        ...location,
+        images: realstateImages,
+        category_id: currentSellCategory.id,
+      })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
       })
       .catch((error) => console.log(error));
     setSubmitting(false);
@@ -134,6 +131,7 @@ const SellCategory = () => {
           seller_name: undefined,
           seller_phone: undefined,
           contact_method: undefined,
+          price: undefined,
         }}
         onSubmit={handleSubmitRealState}
         validateOnChange={true}
@@ -509,7 +507,15 @@ const SellCategory = () => {
                   <InputGroup.Text className="text-primary text-capitalize bg-transparent customGroupInputText">
                     USD
                   </InputGroup.Text>
-                  <Form.Control placeholder="Type Price" aria-label="Type Price" className="postRealStateTextInput" />
+                  <Form.Control
+                    placeholder="Type Price"
+                    aria-label="Type Price"
+                    className="postRealStateTextInput"
+                    name="price"
+                    isInvalid={touched.price && !!errors.price}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                  />
                 </InputGroup>
               </Form.Group>
               <Form.Group className="mb-5" ref={ref} controlId="location">

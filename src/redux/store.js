@@ -8,6 +8,7 @@ import storage from "redux-persist/lib/storage";
 import FooterSlice from "./features/FooterSlice";
 import SellSlice from "./features/SellSlice";
 import NotificationsSlice from "./features/NotificationsSlice";
+import SignupSlice from "./features/SignupSlice";
 
 const reducers = combineReducers({
   home: HomeSlice,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   footer: FooterSlice,
   sell: SellSlice,
   notifications: NotificationsSlice,
+  signupStep: SignupSlice,
 });
 
 const persistConfig = {

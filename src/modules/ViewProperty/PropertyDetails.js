@@ -11,19 +11,23 @@ import { FaPhoneAlt } from "react-icons/fa";
 import ContentLoader from "react-content-loader";
 import parse from "html-react-parser";
 import { Carousel } from "react-responsive-carousel";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import "react-toastify/dist/ReactToastify.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const PropertyDetails = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [propertyInfo, setPropertyInfo] = useState(null);
   const [propertyAd, setPropertyAd] = useState(null);
   const [propertyInstructions, setPropertyInstructions] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const { propertyID } = useParams();
+  const { isLoaded: isMapLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDWZCkmkzES9K2-Ci3AhwEmoOdrth04zKs",
+  });
 
   useEffect(() => {
+    // window.scrollTo(0, 0);
     if (!propertyInfo) {
       authentcatedInstance
         .get(`/realstates/${propertyID}`)
@@ -42,13 +46,13 @@ const PropertyDetails = () => {
   }, [propertyID]);
 
   const handleAddToFavorites = () => {
-    setIsFavorite(!isFavorite);
     authentcatedInstance
       .get(`/realstate/toggle_favorite/${propertyID}`)
       .then((response) => {
         const { data } = response;
         toast.success(data.msg);
         console.log(data);
+        setPropertyInfo({ ...propertyInfo, isFavorite: !propertyInfo.isFavorite });
       })
       .catch((error) => {
         toast.warn(error.message);
@@ -109,11 +113,35 @@ const PropertyDetails = () => {
     );
   };
 
+  const MainSliderLoader = (props) => {
+    return (
+      <ContentLoader viewBox="0 0 650 400" style={{ width: "100%" }} {...props}>
+        <rect x="0" y="235" rx="4" ry="4" width="271" height="9"></rect>
+        <rect x="0" y="255" rx="3" ry="3" width="119" height="6" />
+        <rect x="0" y="0" rx="10" ry="10" style={{ width: "100%" }} height="217" />
+        <rect x="0" y="275" rx="10" ry="10" width={150} height="120" />
+        <rect x="165" y="275" rx="10" ry="10" width={150} height="120" />
+        <rect x="330" y="275" rx="10" ry="10" width={150} height="120" />
+      </ContentLoader>
+    );
+  };
+
+  const MapLoader = (props) => {
+    return (
+      <ContentLoader style={{ width: "100%", height: "350px" }} {...props}>
+        <rect x="0" y="0" rx="2" ry="2" style={{ height: "20px", width: "200px", borderRadius: "10px" }} />
+        <rect x="0" y="50" rx="2" ry="2" style={{ height: "302px", width: "100%", borderRadius: "10px" }} />
+      </ContentLoader>
+    );
+  };
+
   return (
     <Container fluid>
       <Row>
         <Col as="section" md={7} lg={8}>
-          {isLoaded && (
+          {!isLoaded ? (
+            <MainSliderLoader />
+          ) : (
             <Carousel showStatus={false} showIndicators={false}>
               {propertyInfo.images.map((imageSrc) => (
                 <div key={imageSrc}>
@@ -189,7 +217,7 @@ const PropertyDetails = () => {
                 <p>Georgia , Antalia</p>
               </Col>
               <Col md={3} className="text-end">
-                {isFavorite ? (
+                {propertyInfo?.isFavorite ? (
                   <AiFillHeart className="text-primary fs-2xl" role="button" onClick={handleAddToFavorites} />
                 ) : (
                   <AiOutlineHeart className="text-primary fs-2xl" role="button" onClick={handleAddToFavorites} />
@@ -204,11 +232,11 @@ const PropertyDetails = () => {
               <ContactSellerLoader />
             ) : (
               <>
-                <div className="d-flex">
+                <div className="d-flex sellerDescription">
                   <img width={142} height={146} src={propertyInfo?.user?.image} className="rounded-3 me-4" />
-                  <div className="d-flex align-items-start flex-column justify-content-between py-2">
+                  <div className="d-flex align-items-center align-items-lg-start flex-column justify-content-between py-2">
                     <h3 className="text-primary fs-2xl fw-normal mb-0">{propertyInfo?.seller_name}</h3>
-                    <p className="mb-0 fs-md text-secondaryText text-muted">commerical ID : {propertyInfo?.id}</p>
+                    <p className="mb-0 fs-md text-secondaryText text-muted">commerical ID : {propertyInfo?.user?.id}</p>
                     <p className="text-capitalize text-muted">Memeber since {propertyInfo?.user?.member_since}</p>
                   </div>
                 </div>
@@ -258,7 +286,41 @@ const PropertyDetails = () => {
           </section>
         </Col>
       </Row>
-      <Row></Row>
+      <Row>
+        <Col as="section" md={12}>
+          <div className="border border-2 rounded p-4">
+            <h2 className="fw-semibold fs-md text-capitalize mb-3 text-dark">posted in</h2>
+            {!isLoaded || !isMapLoaded ? (
+              <MapLoader />
+            ) : (
+              <>
+                <h3 className="fs-md text-secondary text-capitalize mb-4">{propertyInfo?.location}</h3>
+                <GoogleMap
+                  mapContainerStyle={{
+                    width: "100%",
+                    height: "203px",
+                    borderRadius: "10px",
+                  }}
+                  zoom={8}
+                  center={{
+                    lat: propertyInfo.lat,
+                    lng: propertyInfo.lng,
+                  }}
+                  options={{ disableDefaultUI: true, zoomControl: true }}
+                />
+              </>
+            )}
+          </div>
+          <Row className="mt-3 mb-5">
+            <Col md={6} className="text-primary fw-semibold fs-md text-capitalize">
+              AD ID 112467790
+            </Col>
+            <Col md={6} className="text-end">
+              Report This Ad
+            </Col>
+          </Row>
+        </Col>
+      </Row>
       <ToastContainer position="bottom-right" pauseOnFocusLoss pauseOnHover />
     </Container>
   );

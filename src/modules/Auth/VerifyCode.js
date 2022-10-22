@@ -5,9 +5,12 @@ import { globalInstance } from "../../api/constants";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "./ModalHeader";
 import ReactCodeInput from "react-verification-code-input";
+import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import useCountDown from "react-countdown-hook";
+import { handleSignupTypeOutput } from "../../shared/utils/handleSignupType";
+import { resetSignupStep } from "../../redux/features/SignupSlice";
 
 const INITIAL_COUNT = 10 * 1000;
 
@@ -17,7 +20,7 @@ const VerifyCode = () => {
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(INITIAL_COUNT, 1000);
   const currentModal = useSelector((state) => state.modal.view);
   const showModalStatus = useSelector((state) => state.modal.open);
-  const userEmail = JSON.parse(localStorage.getItem("register"))?.email || "";
+  const signupStep = useSelector((state) => state.signupStep);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,9 +40,9 @@ const VerifyCode = () => {
   const handleVerifyCode = async (code) => {
     setIsLoading(true);
     const sendData = await globalInstance.post("/auth/code_check", {
-      type: "email",
+      type: signupStep.type,
       code,
-      email: userEmail,
+      [handleSignupTypeOutput(signupStep.type)]: signupStep[handleSignupTypeOutput(signupStep.type)],
     });
     const { data: responseData } = sendData;
 
@@ -58,8 +61,8 @@ const VerifyCode = () => {
 
   const handleResendCode = async () => {
     const sendData = await globalInstance.post("/auth/resend_code", {
-      type: "email",
-      email: userEmail,
+      type: signupStep.type,
+      [handleSignupTypeOutput(signupStep.type)]: signupStep[handleSignupTypeOutput(signupStep.type)],
     });
     const { data: responseData } = sendData;
     console.log(responseData);
@@ -73,6 +76,15 @@ const VerifyCode = () => {
     dispatch(setCloseModal());
   }, [dispatch]);
 
+  const resetStep = () => {
+    if (signupStep.type === "phone") {
+      dispatch(setShowModal("phone"));
+    } else {
+      dispatch(setShowModal("signup"));
+    }
+    dispatch(resetSignupStep());
+  };
+
   return (
     <Modal show={(currentModal === "verify-code") & showModalStatus ? true : false} onHide={handleClose}>
       <Modal.Body className="px-4">
@@ -81,7 +93,12 @@ const VerifyCode = () => {
           hints={
             <>
               <p className="fs-sm my-4">
-                We Sent A 4-Digit Code to <span className="text-primary">{userEmail}</span>
+                We Sent A 4-Digit Code to{" "}
+                <span className="text-primary">
+                  {`${handleSignupTypeOutput(signupStep.type) === "phone" && "+961"}${
+                    signupStep[handleSignupTypeOutput(signupStep.type)]
+                  }`}
+                </span>
               </p>
             </>
           }
@@ -117,9 +134,18 @@ const VerifyCode = () => {
           </div>
           <p className="mb-0 fw-semibold">If you have not received the code by SMS,</p>
           <p>please request</p>
-          <button className="text-primary bg-transparent border-0 fs-md text-capitalize mb-4">
-            resend code by call
-          </button>
+          {handleSignupTypeOutput(signupStep.type) === "phone" && (
+            <button className="text-primary bg-transparent border-0 fs-md text-capitalize mb-4">
+              resend code by call
+            </button>
+          )}
+          <Button
+            variant="outline-primary"
+            className="text-primary w-100 fs-md text-capitalize mb-4"
+            onClick={resetStep}
+          >
+            Want to change {handleSignupTypeOutput(signupStep.type)}
+          </Button>
         </div>
       </Modal.Body>
     </Modal>

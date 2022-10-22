@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCloseModal, setShowModal } from "../../../redux/features/ModalSlice";
 import { IoMdLock } from "react-icons/io";
@@ -15,6 +15,7 @@ import infinity from "react-useanimations/lib/infinity";
 import ModalHeader from "../ModalHeader";
 import { FaUserAlt } from "react-icons/fa";
 import signupSchema from "../../../shared/schemas/SignupSchema";
+import { setSignupEmail, setSignupStep } from "../../../redux/features/SignupSlice";
 
 const Signup = () => {
   const currentModal = useSelector((state) => state.modal.view);
@@ -29,7 +30,8 @@ const Signup = () => {
 
     if (responseData.data) {
       dispatch(setShowModal("verify-code"));
-      localStorage.setItem("register", JSON.stringify({ step: "verify-code", email: data.email }));
+      dispatch(setSignupEmail({ type: "email", email: data.email, password: data.password }));
+      dispatch(setSignupStep({ step: "verify-code" }));
     } else {
       setErrors({ [responseData.field]: responseData.msg });
     }
@@ -44,7 +46,7 @@ const Signup = () => {
   };
 
   return (
-    <Modal show={(currentModal === "signup") & showModalStatus && true} onHide={handleClose}>
+    <Modal show={currentModal === "signup" && showModalStatus && true} onHide={handleClose}>
       <Modal.Body className="px-4">
         <ModalHeader
           title="welcome to real state"

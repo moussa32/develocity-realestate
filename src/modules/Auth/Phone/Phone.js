@@ -1,22 +1,15 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCloseModal } from "../../../redux/features/ModalSlice";
-import { IoMdLock } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
+import { setCloseModal, setShowModal } from "../../../redux/features/ModalSlice";
 import { Formik } from "formik";
-import { authentcatedInstance } from "../../../api/constants";
-import { setUser } from "../../../redux/features/UserSlice";
-import { Link } from "react-router-dom";
-import loginSchema from "../../../shared/schemas/LoginSchema";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import DividerWithText from "../../../shared/components/DividerWithText";
-import ThirdPartyButtons from "../ThirdPartyButtons";
 import UseAnimations from "react-useanimations";
 import infinity from "react-useanimations/lib/infinity";
 import ModalHeader from "../ModalHeader";
+import { phoneNumberSchema } from "../../../shared/schemas/PhoneNumberSchema";
 
 const Phone = () => {
   const currentModal = useSelector((state) => state.modal.view);
@@ -24,16 +17,10 @@ const Phone = () => {
   const dispatch = useDispatch();
 
   const handleLoginForm = async (data, actions) => {
-    const { setSubmitting, setErrors } = actions;
+    const { setSubmitting } = actions;
     setSubmitting(true);
-    const sendData = await authentcatedInstance.post("/auth/login", { type: "phone", ...data });
-    const { data: responseData } = sendData;
-    setErrors({ [responseData.field]: responseData.msg });
-
-    if (responseData.code === 200) {
-      dispatch(setUser(responseData.data.user));
-      dispatch(setCloseModal());
-    }
+    sessionStorage.setItem("phoneNumber", data.phoneNumber);
+    dispatch(setShowModal("createPassword"));
   };
 
   const handleClose = useCallback(() => {
@@ -45,7 +32,7 @@ const Phone = () => {
       <Modal.Body className="px-4">
         <ModalHeader subTitle="enter your phone" />
         <Formik
-          validationSchema={loginSchema}
+          validationSchema={phoneNumberSchema}
           initialValues={{ phoneNumber: "" }}
           onSubmit={handleLoginForm}
           validateOnChange={true}
@@ -53,28 +40,31 @@ const Phone = () => {
         >
           {({ handleSubmit, handleChange, handleBlur, values, touched, errors, isSubmitting }) => (
             <Form noValidate onSubmit={handleSubmit} className="mt-4">
-              <Form.Group className="mb-3" controlId="email-input">
+              {console.log(values)}
+              <Form.Group className="mb-3" controlId="phoneNumber-input">
                 <InputGroup hasValidation className="mb-3">
                   <InputGroup.Text
                     id="basic-addon1"
                     className={`${
-                      !!errors.phoneNumber ? "border-danger" : "border-primary"
-                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start formIcon text-primary fs-sm`}
+                      !!errors.phoneNumber && touched.phoneNumber
+                        ? "border-danger text-danger"
+                        : "border-primary text-primary"
+                    } bg-transparent border-1 rounded border-end-0 rounded-0 rounded-start formIcon fs-sm`}
                   >
                     +961
                   </InputGroup.Text>
                   <Form.Control
                     placeholder="Phone Number"
                     onChange={handleChange}
-                    name="email"
+                    name="phoneNumber"
                     onBlur={handleBlur}
                     value={values.phoneNumber}
-                    aria-label="Email"
-                    type="email"
+                    aria-label="Phone Number"
+                    type="text"
                     className={`${
                       !!errors.phoneNumber && touched.phoneNumber ? "border-danger" : "border-primary"
                     } bg-transparent border-start-0 border-1 shadow-none fs-sm formInput`}
-                    aria-describedby="email-input"
+                    aria-describedby="phoneNumber-input"
                     isInvalid={!!errors.phoneNumber && touched.phoneNumber}
                     disabled={isSubmitting}
                   />

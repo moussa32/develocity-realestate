@@ -9,7 +9,13 @@
   display: block;
 }
 
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-between(md, xl) {
+  .navLinkNormal {
+    margin-right: 1rem;
+  }
+}
+
+@include media-breakpoint-up(xl) {
   .navLinkNormal {
     margin-right: 3.375rem;
   }

@@ -2,3 +2,9 @@
   box-shadow: 0px 8.65278px 58.8389px rgba(0, 0, 0, 0.05);
   opacity: 0.98;
 }
+
+@include media-breakpoint-down(lg) {
+  .navbar-expand-md .navbar-collapse {
+    flex: 1 100%;
+  }
+}

@@ -10,13 +10,19 @@
 
 .responsive-pills {
   flex-direction: column;
+  h2 {
+    margin-top: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .responsive-pills {
+    flex-direction: row;
+  }
 }
 
 @include media-breakpoint-up(md) {
   .viewDeatailsButton {
     width: 334px;
-  }
-  .responsive-pills {
-    flex-direction: row;
   }
 }

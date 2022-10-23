@@ -40,7 +40,7 @@ const Footer = () => {
   return (
     <>
       {footerStatus === "success" && (
-        <footer className="text-white footer-style">
+        <footer className="text-white footer-style mt-5">
           <Container>
             <Row className="main-footer">
               <Col>

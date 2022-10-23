@@ -1,0 +1,28 @@
+.staticPageWrapper {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    text-transform: capitalize;
+    border-left: 12px solid $primary;
+    border-radius: 3px;
+    padding: 1rem 0 1rem 12px;
+    margin-bottom: 1rem;
+    font-weight: normal;
+  }
+  p,
+  li {
+    font-size: $font-size-md;
+  }
+  li {
+    margin: 2.5rem 0;
+    line-height: 28px;
+    &::marker {
+      font-size: 32px;
+      color: $primary;
+    }
+  }
+}

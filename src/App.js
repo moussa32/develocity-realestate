@@ -3,19 +3,18 @@ import { lazy } from "react";
 import Navbar from "./shared/components/Navbar/Navbar";
 import Footer from "./shared/components/Footer";
 import "./styles/custom.scss";
-import PropertyDetails from "./modules/ViewProperty/PropertyDetails";
 import ProtectedRoute from "./shared/components/ProtectedRoute";
 import Notifications from "./shared/components/Navbar/Notifications";
 import { useSelector } from "react-redux";
-import Search from "./modules/Search/Search";
 const Home = lazy(() => import("./modules/Home/Home"));
 const SellCategory = lazy(() => import("./modules/Sell/SellCategory"));
-// const SellHome = lazy(() => import("./pages/SellHome"));
-// const View = lazy(() => import("./pages/View"));
 const Details = lazy(() => import("./pages/Details"));
 const Favourites = lazy(() => import("./modules/User/Favourites"));
 const HotDeals = lazy(() => import("./modules/User/HotDeals"));
 const Sell = lazy(() => import("./modules/Sell/Sell"));
+const PropertyDetails = lazy(() => import("./modules/ViewProperty/PropertyDetails"));
+const Search = lazy(() => import("./modules/Search/Search"));
+const Static = lazy(() => import("./modules/StaticPages/Static"));
 
 const App = () => {
   const isNotificationsOpen = useSelector(({ notifications }) => notifications.data.isOpen);
@@ -37,6 +36,8 @@ const App = () => {
             </Route>
             <Route path="/view/:propertyID" element={<PropertyDetails />} />
             <Route path="/details" element={<Details />} />
+            <Route path="/page/:pageSlug" element={<Static />} />
+            <Route path="/privacy" element={<Static />} />
           </Routes>
         </section>
         <Footer />

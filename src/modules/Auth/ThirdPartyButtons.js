@@ -20,10 +20,14 @@ const ThirdPartyButtons = () => {
     globalInstance
       .post("/auth/social_register", userData)
       .then((res) => {
-        console.log(res);
+        const { data: responseData } = res;
+
+        if (responseData.code === 200) {
+          dispatch(setUser(responseData.data.user));
+          dispatch(setCloseModal());
+        }
       })
       .catch((error) => console.log(error));
-    console.log(response);
   };
 
   return (

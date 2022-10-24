@@ -39,7 +39,7 @@ const ThirdPartyButtons = () => {
   return (
     <div className="d-flex justify-content-center align-items-center mx-auto gap-4 mt-4">
       <GoogleLogin
-        clientId="real-estate-1666252845930"
+        clientId="102324541899-52jct2ir1v0c6rg9av45ua65lnighdbk.apps.googleusercontent.com"
         render={(renderProps) => (
           <button
             className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}
@@ -53,6 +53,7 @@ const ThirdPartyButtons = () => {
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
         cookiePolicy={"single_host_origin"}
+        redirectUri="http://localhost:3000/"
       />
       <FacebookLogin
         appId="1523259471459515"

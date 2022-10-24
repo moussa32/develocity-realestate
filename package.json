@@ -24,6 +24,7 @@
     "react-cool-onclickoutside": "^1.7.0",
     "react-countdown-hook": "^1.1.1",
     "react-dom": "^18.2.0",
+    "react-facebook-login": "^4.1.1",
     "react-gallery-carousel": "^0.2.10",
     "react-geocode": "^0.2.3",
     "react-google-autocomplete": "^2.7.0",

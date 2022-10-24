@@ -3,9 +3,11 @@ import { FaFacebookF } from "react-icons/fa";
 import { BsTelephoneFill } from "react-icons/bs";
 import styles from "./ThirdPartyButtons.module.scss";
 import { useDispatch } from "react-redux";
-import { setShowModal } from "../../redux/features/ModalSlice";
+import { setCloseModal, setShowModal } from "../../redux/features/ModalSlice";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import { GoogleLogin } from "react-google-login";
 import { globalInstance } from "../../api/constants";
+import { setUser } from "../../redux/features/UserSlice";
 
 const ThirdPartyButtons = () => {
   const dispatch = useDispatch();
@@ -30,11 +32,28 @@ const ThirdPartyButtons = () => {
       .catch((error) => console.log(error));
   };
 
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+
   return (
     <div className="d-flex justify-content-center align-items-center mx-auto gap-4 mt-4">
-      <button className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}>
-        <FcGoogle className={`${styles.thirdPartyIcon}`} />
-      </button>
+      <GoogleLogin
+        clientId="real-estate-1666252845930"
+        render={(renderProps) => (
+          <button
+            className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          >
+            <FcGoogle className={`${styles.thirdPartyIcon}`} />
+          </button>
+        )}
+        autoLoad={false}
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      />
       <FacebookLogin
         appId="1523259471459515"
         callback={responseFacebook}

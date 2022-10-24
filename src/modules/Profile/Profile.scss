@@ -1,0 +1,30 @@
+.userProfileBackground {
+  background: rgba(0, 125, 206, 0.52);
+  height: 300px;
+  border-radius: 10px;
+  position: absolute;
+  width: 100%;
+}
+
+.userProfileMainInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 160px;
+  * {
+    z-index: 5000;
+  }
+}
+
+.userProfileImage {
+  border: 7px solid #ffffff;
+  border-radius: 50%;
+  width: 280px;
+}
+
+.userProfileRating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

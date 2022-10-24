@@ -1,21 +1,21 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { BsChat } from "react-icons/bs";
-import { MdOutlineNotificationsNone, MdOutlineKeyboardArrowDown, MdOutlineSettings } from "react-icons/md";
-import { AiOutlineHeart } from "react-icons/ai";
-import { TbDiscount2 } from "react-icons/tb";
-import { RiLogoutBoxLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../../../redux/features/UserSlice";
 import { globalInstance } from "../../../api/constants";
 import { FaPlus } from "react-icons/fa";
+import { MdOutlineNotificationsNone, MdOutlineKeyboardArrowDown, MdOutlineSettings } from "react-icons/md";
+import { RiLogoutBoxLine, RiAdvertisementLine } from "react-icons/ri";
+import { BsChat } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
+import { TbDiscount2 } from "react-icons/tb";
 import { toggleNotificationsMenu } from "../../../redux/features/NotificationsSlice";
 
 const UserActions = ({ userData }) => {
   const dispatch = useDispatch();
-  const { username, image } = userData;
+  const { username, image, id } = userData;
 
   const handleLogout = async () => {
     await globalInstance.post("auth/logout");
@@ -39,19 +39,25 @@ const UserActions = ({ userData }) => {
           <MdOutlineKeyboardArrowDown className="fs-xl text-primary ms-1" />
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="dropdown-menu-end py-0" style={{ zIndex: 5000 }}>
+        <Dropdown.Menu className="dropdown-menu-end py-0 customNavbarDropdown">
           <Dropdown.Item as={Button} className="d-flex py-2 bg-primary bg-opacity-5">
             <img className="rounded-circle" src={image} alt={username} title={username} width={47} height={44} />
             <div className="ms-3">
-              <p className="mb-0 text-dark" style={{ fontSize: "14px" }}>
-                Hello, {username}
-              </p>
-              <Link className="" to="/profile" style={{ fontSize: "14px" }}>
-                View and edit your profile
+              <p className="mb-0 text-dark fs-xs">Hello, {username}</p>
+              <Link className="fs-xs" to={`/profile/${id}`}>
+                View your profile
               </Link>
             </div>
           </Dropdown.Item>
           <NavDropdown.Divider className="m-0" />
+          <Dropdown.Item
+            as={Link}
+            to="/my-ads"
+            className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}
+          >
+            <RiAdvertisementLine className="me-2" size="1.2rem" />
+            my ads
+          </Dropdown.Item>
           <Dropdown.Item
             as={Link}
             to="/favourite"
@@ -68,7 +74,11 @@ const UserActions = ({ userData }) => {
             <TbDiscount2 className="me-2" size="1.2rem" />
             hot deals
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-3" className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}>
+          <Dropdown.Item
+            as={Link}
+            to="/settings"
+            className={`text-capitalize py-2 d-flex align-items-center dropdownItem`}
+          >
             <MdOutlineSettings className="me-2" size="1.2rem" />
             settings
           </Dropdown.Item>

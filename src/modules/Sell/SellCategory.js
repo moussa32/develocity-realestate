@@ -491,7 +491,7 @@ const SellCategory = () => {
                   onChange={handleChange}
                   disabled={isSubmitting}
                   as="textarea"
-                  className="fs-md px-4 py-3"
+                  className="customTextAreaInput"
                   name="desc"
                   placeholder="Type Description"
                   rows={6}

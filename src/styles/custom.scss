@@ -23,6 +23,7 @@
 @import "../modules/ViewProperty/PropertyDetails.scss";
 @import "../modules/Search/Search.scss";
 @import "../modules/StaticPages/Static.scss";
+@import "../modules/Profile/Profile.scss";
 
 @include media-breakpoint-down(lg) {
   .fs-sm {

@@ -104,7 +104,9 @@ const DealsCarousel = () => {
                 customDot={<CustomDot items={currentDeals} />}
               >
                 {currentDeals.map((propertyInfo) => (
-                  <PropertyCard info={propertyInfo} key={`${propertyInfo.id}${propertyInfo.title}`} />
+                  <div style={{ marginTop: "3rem" }} key={`${propertyInfo.id}${propertyInfo.title}`}>
+                    <PropertyCard info={propertyInfo} />
+                  </div>
                 ))}
               </Carousel>
             )}

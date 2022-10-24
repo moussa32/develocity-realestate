@@ -2,6 +2,8 @@
   background: rgba(247, 251, 255, 0.35);
   border: 1px solid rgba(0, 125, 206, 0.25);
   border-radius: 10px;
+  height: fit-content;
+  padding-bottom: 5rem;
 
   h2 {
     padding-left: 18px;
@@ -15,15 +17,23 @@
   padding: 0 48px;
 }
 
+.custom-select {
+  margin: 24px 0;
+}
+
 .search-select {
   color: rgba(152, 152, 152, 0.5);
   border: 1px solid #d6d6d6;
-  padding: 16px;
-  margin-top: 24px;
+  padding: 0.5rem 1rem 0.5rem 3rem;
   option {
     padding: 18px 20px;
     &:hover {
       background-color: $primary;
     }
   }
+}
+
+.select-icon {
+  color: #989898;
+  left: 30px;
 }

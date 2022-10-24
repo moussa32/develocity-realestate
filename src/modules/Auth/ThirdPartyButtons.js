@@ -5,6 +5,7 @@ import styles from "./ThirdPartyButtons.module.scss";
 import { useDispatch } from "react-redux";
 import { setShowModal } from "../../redux/features/ModalSlice";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import { globalInstance } from "../../api/constants";
 
 const ThirdPartyButtons = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,14 @@ const ThirdPartyButtons = () => {
   };
 
   const responseFacebook = (response) => {
+    const { name, email } = response;
+    const userData = { username: name, email, provider: "facebook" };
+    globalInstance
+      .post("/auth/social_register", userData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
     console.log(response);
   };
 

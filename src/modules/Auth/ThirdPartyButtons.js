@@ -23,7 +23,7 @@ const ThirdPartyButtons = () => {
       .post("/auth/social_register", userData)
       .then((res) => {
         const { data: responseData } = res;
-
+        console.log(res);
         if (responseData.code === 200) {
           dispatch(setUser(responseData.data.user));
           dispatch(setCloseModal());

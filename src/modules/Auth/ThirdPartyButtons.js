@@ -8,19 +8,22 @@ import { GoogleLogin } from "react-google-login";
 import { globalInstance } from "../../api/constants";
 import { setUser } from "../../redux/features/UserSlice";
 import FacebookLogin from "@greatsumini/react-facebook-login";
+import { useState } from "react";
 
 const ThirdPartyButtons = () => {
+  const [facebookCredentials, setFacebookCredentials] = useState(null);
   const dispatch = useDispatch();
 
   const handleOpenPhoneModal = () => {
     dispatch(setShowModal("phone"));
   };
 
-  const responseFacebook = (response) => {
-    const { name, email } = response;
-    console.log(response);
+  const loginWithFacebook = () => {
+    const { name, email } = facebookCredentials;
 
     const userData = { username: name, email, provider: "facebook" };
+    console.log(userData);
+
     globalInstance
       .post("/auth/social_register", userData)
       .then((res) => {
@@ -58,15 +61,13 @@ const ThirdPartyButtons = () => {
       />
       <FacebookLogin
         appId="1523259471459515"
-        scope="public_profile"
-        onSuccess={(response) => {
-          console.log("Login Success!", response);
-        }}
+        onSuccess={(response) => setFacebookCredentials({ ...facebookCredentials, response })}
         onFail={(error) => {
           console.log("Login Failed!", error);
         }}
         onProfileSuccess={(response) => {
-          console.log("Get Profile Success!", response);
+          setFacebookCredentials({ ...facebookCredentials, response });
+          loginWithFacebook();
         }}
         render={({ onClick }) => (
           <button

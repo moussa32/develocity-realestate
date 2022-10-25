@@ -18,12 +18,13 @@ const ThirdPartyButtons = () => {
 
   const responseFacebook = (response) => {
     const { name, email } = response;
+    console.log(response);
+
     const userData = { username: name, email, provider: "facebook" };
     globalInstance
       .post("/auth/social_register", userData)
       .then((res) => {
         const { data: responseData } = res;
-        console.log(res);
         if (responseData.code === 200) {
           dispatch(setUser(responseData.data.user));
           dispatch(setCloseModal());

@@ -19,11 +19,11 @@ const ThirdPartyButtons = () => {
   const loginWithFacebook = (response) => {
     const { name, email } = response;
 
-    const userData = { username: name, email, provider: "facebook" };
+    const userData = { username: name, email, provider: "facebook", image: response.picture.data.url };
     console.log(userData, response);
 
     globalInstance
-      .post("/auth/social_register", userData)
+      .post("/auth/social", userData)
       .then((res) => {
         const { data: responseData } = res;
         if (responseData.code === 200) {

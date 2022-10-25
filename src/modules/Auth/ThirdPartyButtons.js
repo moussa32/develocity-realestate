@@ -8,7 +8,6 @@ import { GoogleLogin } from "react-google-login";
 import { globalInstance } from "../../api/constants";
 import { setUser } from "../../redux/features/UserSlice";
 import FacebookLogin from "@greatsumini/react-facebook-login";
-import { useState } from "react";
 
 const ThirdPartyButtons = () => {
   const dispatch = useDispatch();

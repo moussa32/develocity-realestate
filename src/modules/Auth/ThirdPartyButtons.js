@@ -11,15 +11,14 @@ import FacebookLogin from "@greatsumini/react-facebook-login";
 import { useState } from "react";
 
 const ThirdPartyButtons = () => {
-  const [facebookCredentials, setFacebookCredentials] = useState(null);
   const dispatch = useDispatch();
 
   const handleOpenPhoneModal = () => {
     dispatch(setShowModal("phone"));
   };
 
-  const loginWithFacebook = () => {
-    const { name, email } = facebookCredentials;
+  const loginWithFacebook = (response) => {
+    const { name, email } = response;
 
     const userData = { username: name, email, provider: "facebook" };
     console.log(userData);
@@ -61,14 +60,10 @@ const ThirdPartyButtons = () => {
       />
       <FacebookLogin
         appId="1523259471459515"
-        onSuccess={(response) => setFacebookCredentials({ ...facebookCredentials, response })}
         onFail={(error) => {
           console.log("Login Failed!", error);
         }}
-        onProfileSuccess={(response) => {
-          setFacebookCredentials({ ...facebookCredentials, response });
-          loginWithFacebook();
-        }}
+        onProfileSuccess={(response) => loginWithFacebook(response)}
         render={({ onClick }) => (
           <button
             className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}

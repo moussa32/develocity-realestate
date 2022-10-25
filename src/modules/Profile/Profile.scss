@@ -28,3 +28,53 @@
   flex-direction: row;
   align-items: center;
 }
+
+.userProfilePropertiesStats {
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  box-shadow: 4px 3px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 42px 108px;
+  margin-top: 52px;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.userProfilePropertyStatCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-right: 1px solid $primary;
+  justify-content: center;
+  align-items: center;
+  flex: 1 350px;
+  &:last-child {
+    border: none;
+  }
+}
+
+.customCardCenter {
+  div {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .userProfilePropertiesStats {
+    padding: 30px 50px;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .userProfilePropertyStatCard {
+    flex-basis: 250px;
+    border-bottom: 1px solid $primary;
+    border-right: 0;
+    &:last-child {
+      border: none;
+    }
+  }
+}

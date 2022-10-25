@@ -17,6 +17,7 @@ const Search = lazy(() => import("./modules/Search/Search"));
 const Static = lazy(() => import("./modules/StaticPages/Static"));
 const Profile = lazy(() => import("./modules/Profile/Profile"));
 const Settings = lazy(() => import("./modules/User/Settings"));
+const MyAds = lazy(() => import("./modules/User/MyAds"));
 
 const App = () => {
   const isNotificationsOpen = useSelector(({ notifications }) => notifications.data.isOpen);
@@ -37,6 +38,7 @@ const App = () => {
               <Route path="favourite" element={<Favourites />} />
               <Route path="hot-deals" element={<HotDeals />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="my-ads" element={<MyAds />} />
             </Route>
             <Route path="/view/:propertyID" element={<PropertyDetails />} />
             <Route path="/details" element={<Details />} />

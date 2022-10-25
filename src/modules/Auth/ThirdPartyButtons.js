@@ -20,7 +20,7 @@ const ThirdPartyButtons = () => {
     const { name, email } = response;
 
     const userData = { username: name, email, provider: "facebook" };
-    console.log(userData);
+    console.log(userData, response);
 
     globalInstance
       .post("/auth/social_register", userData)

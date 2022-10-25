@@ -58,6 +58,7 @@ const ThirdPartyButtons = () => {
       />
       <FacebookLogin
         appId="1523259471459515"
+        scope="public_profile"
         onSuccess={(response) => {
           console.log("Login Success!", response);
         }}
@@ -76,20 +77,6 @@ const ThirdPartyButtons = () => {
           </button>
         )}
       />
-      {/* <FacebookLogin
-        appId="1523259471459515"
-        callback={responseFacebook}
-        render={(renderProps) => (
-          <button
-            className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}
-            onClick={renderProps.onClick}
-          >
-            <FaFacebookF className={`${styles.thirdPartyIcon} ${styles.facebookIcon}`} />
-          </button>
-        )}
-        fields="name,email,picture"
-        scope="public_profile,name,email"
-      /> */}
       <button
         className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}
         onClick={handleOpenPhoneModal}

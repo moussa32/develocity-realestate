@@ -4,10 +4,10 @@ import { BsTelephoneFill } from "react-icons/bs";
 import styles from "./ThirdPartyButtons.module.scss";
 import { useDispatch } from "react-redux";
 import { setCloseModal, setShowModal } from "../../redux/features/ModalSlice";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { GoogleLogin } from "react-google-login";
 import { globalInstance } from "../../api/constants";
 import { setUser } from "../../redux/features/UserSlice";
+import FacebookLogin from "@greatsumini/react-facebook-login";
 
 const ThirdPartyButtons = () => {
   const dispatch = useDispatch();
@@ -58,6 +58,27 @@ const ThirdPartyButtons = () => {
       />
       <FacebookLogin
         appId="1523259471459515"
+        scope="public_profile,name,email"
+        onSuccess={(response) => {
+          console.log("Login Success!", response);
+        }}
+        onFail={(error) => {
+          console.log("Login Failed!", error);
+        }}
+        onProfileSuccess={(response) => {
+          console.log("Get Profile Success!", response);
+        }}
+        render={({ onClick }) => (
+          <button
+            className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}
+            onClick={onClick}
+          >
+            <FaFacebookF className={`${styles.thirdPartyIcon} ${styles.facebookIcon}`} />
+          </button>
+        )}
+      />
+      {/* <FacebookLogin
+        appId="1523259471459515"
         callback={responseFacebook}
         render={(renderProps) => (
           <button
@@ -69,7 +90,7 @@ const ThirdPartyButtons = () => {
         )}
         fields="name,email,picture"
         scope="public_profile,name,email"
-      />
+      /> */}
       <button
         className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}
         onClick={handleOpenPhoneModal}

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@greatsumini/react-facebook-login": "^3.2.1",
     "@mantine/core": "^5.1.1",
     "@mantine/hooks": "^5.1.1",
     "@mantine/next": "^5.1.1",
@@ -24,8 +25,6 @@
     "react-cool-onclickoutside": "^1.7.0",
     "react-countdown-hook": "^1.1.1",
     "react-dom": "^18.2.0",
-    "react-facebook": "^9.0.8",
-    "react-facebook-login": "^4.1.1",
     "react-gallery-carousel": "^0.2.10",
     "react-geocode": "^0.2.3",
     "react-google-autocomplete": "^2.7.0",

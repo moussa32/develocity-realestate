@@ -58,7 +58,6 @@ const ThirdPartyButtons = () => {
       />
       <FacebookLogin
         appId="1523259471459515"
-        scope="public_profile,name,email"
         onSuccess={(response) => {
           console.log("Login Success!", response);
         }}

@@ -16,6 +16,7 @@ const PropertyDetails = lazy(() => import("./modules/ViewProperty/PropertyDetail
 const Search = lazy(() => import("./modules/Search/Search"));
 const Static = lazy(() => import("./modules/StaticPages/Static"));
 const Profile = lazy(() => import("./modules/Profile/Profile"));
+const Settings = lazy(() => import("./modules/User/Settings"));
 
 const App = () => {
   const isNotificationsOpen = useSelector(({ notifications }) => notifications.data.isOpen);
@@ -31,10 +32,11 @@ const App = () => {
             <Route element={<ProtectedRoute />}>
               <Route path="sell" element={<Sell />} />
               <Route path="sell/:categoryName" element={<SellCategory />} />
-              <Route path="favourite" element={<Favourites />} />
-              <Route path="hot-deals" element={<HotDeals />} />
               <Route path="search" element={<Search />} />
               <Route path="profile/:userID" element={<Profile />} />
+              <Route path="favourite" element={<Favourites />} />
+              <Route path="hot-deals" element={<HotDeals />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
             <Route path="/view/:propertyID" element={<PropertyDetails />} />
             <Route path="/details" element={<Details />} />

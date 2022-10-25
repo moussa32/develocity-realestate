@@ -24,6 +24,7 @@
 @import "../modules/Search/Search.scss";
 @import "../modules/StaticPages/Static.scss";
 @import "../modules/Profile/Profile.scss";
+@import "../modules/User/Settings";
 
 @include media-breakpoint-down(lg) {
   .fs-sm {

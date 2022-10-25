@@ -67,7 +67,7 @@ const ThirdPartyButtons = () => {
             <FaFacebookF className={`${styles.thirdPartyIcon} ${styles.facebookIcon}`} />
           </button>
         )}
-        scope="public_profile,name,email"
+        scope="email"
       />
       <button
         className={`border border-primary bg-transparent rounded ${styles.thirdPartyButton}`}

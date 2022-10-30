@@ -92,12 +92,20 @@ const SellCategory = () => {
     const { setSubmitting } = methods;
 
     await authentcatedInstance
-      .post("realstates", {
-        ...values,
-        ...location,
-        images: realstateImages,
-        category_id: currentSellCategory.id,
-      })
+      .post(
+        "realstates",
+        {
+          ...values,
+          ...location,
+          images: realstateImages,
+          category_id: currentSellCategory.id,
+        },
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data);
       })

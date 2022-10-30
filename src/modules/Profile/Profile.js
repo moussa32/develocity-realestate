@@ -9,16 +9,16 @@ import { BsStar, BsStarFill } from "react-icons/bs";
 import Rating from "react-rating";
 import { authentcatedInstance } from "../../api/constants";
 import PropertyCard from "../../shared/components/PropertyCard";
-import ReviewPersonImage from "../../assets/person.jpg";
-import ReviewPersonImage2 from "../../assets/reviewerImage.png";
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const { userID } = useParams();
 
   useEffect(() => {
     authentcatedInstance
-      .get("/user/39/profile")
+      .get(`/user/${userID}/profile`)
       .then((res) => {
         const { data } = res.data;
         setProfile(data);
@@ -35,15 +35,28 @@ const Profile = () => {
       speed={1}
       viewBox="0 0 400 560"
       {...props}
-      width={400}
-      backgroundColor="#f3f3f3"
+      backgroundColor="#d9d9d9"
       foregroundColor="#ecebeb"
-      className="mx-auto d-block"
+      className="mx-auto d-block userProfileLoader"
       style={{ zIndex: "5000" }}
     >
       <circle cx="200" cy="200" r="200" style={{ zIndex: "5000" }} />
       <rect x="100" y="440" rx="0" ry="0" width="200" height="25" style={{ zIndex: "5000" }} />
       <rect x="80" y="495" rx="0" ry="0" width="240" height="17" style={{ zIndex: "5000" }} />
+    </ContentLoader>
+  );
+
+  const ProfileStatsLoader = (props) => (
+    <ContentLoader
+      className="w-100"
+      viewBox="0 0 778 116"
+      height={116}
+      backgroundColor="#d9d9d9"
+      foregroundColor="#ecebeb"
+      {...props}
+    >
+      <rect x="150" y="29" rx="0" ry="0" height="32" style={{ width: "50%" }} />
+      <rect x="120" y="91" rx="0" ry="0" width="400" height="32" style={{ width: "60%" }} />
     </ContentLoader>
   );
 
@@ -81,13 +94,26 @@ const Profile = () => {
         )}
       </section>
       <section className="userProfilePropertiesStats">
-        {isLoaded &&
+        {isLoaded ? (
           profile.user_realstates_statistic.map(({ name, count }) => (
             <div key={`${name}${count}`} className="userProfilePropertyStatCard">
               <p className="text-dark fs-2xl fw-semibold mb-0">{count}</p>
               <p className="text-dark fs-2xl fw-semibold text-captialize mb-0">{name}</p>
             </div>
-          ))}
+          ))
+        ) : (
+          <Row>
+            <Col md={4} sm={12}>
+              <ProfileStatsLoader />
+            </Col>
+            <Col md={4} sm={12}>
+              <ProfileStatsLoader />
+            </Col>
+            <Col md={4} sm={12}>
+              <ProfileStatsLoader />
+            </Col>
+          </Row>
+        )}
       </section>
       <section>
         <h2 className="fs-2xl fw-semibold text-capitalize headingBorderLine py-4 ps-3 mb-4">Available Prperties</h2>
@@ -123,7 +149,7 @@ const Profile = () => {
             </Col>
           ))}
       </Row>
-      <Form>
+      {/* <Form>
         <Form.Group as="section" className="my-4" controlId="reviewComment">
           <h2 className="headingBorderLine p-4">Add Review</h2>
           <h3 className="text-dark text-capitalize mt-5 fw-normal mb-3">add your own review</h3>
@@ -144,7 +170,7 @@ const Profile = () => {
         <Button variant="primary" className="submitReviewButton text-white mx-auto d-block fs-md">
           Add Review
         </Button>
-      </Form>
+      </Form> */}
     </Container>
   );
 };

@@ -55,6 +55,11 @@
   }
 }
 
+.userProfileLoader {
+  max-width: 400px;
+  padding-top: 4rem;
+}
+
 .customCardCenter {
   div {
     margin-left: auto;
@@ -76,5 +81,14 @@
     &:last-child {
       border: none;
     }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .userProfileBackground {
+    height: 200px;
+  }
+  .userProfileLoader {
+    width: 250px;
   }
 }

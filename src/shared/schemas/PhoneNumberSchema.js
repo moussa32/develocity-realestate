@@ -5,5 +5,5 @@ export const phoneNumberSchema = yup.object().shape({
     .string()
     .required("Phone number is required")
     .matches(/^[0-9]+$/, "Must be only digits")
-    .test("len", "Must be exactly 9 numbers", (val) => val.length === 9),
+    .test("len", "Must be exactly 9 numbers", (val) => val.length === 11),
 });

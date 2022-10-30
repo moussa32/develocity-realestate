@@ -28,6 +28,7 @@ const CreatePassword = () => {
       password: data.password,
     });
     const { data: responseData } = sendData;
+    console.log(sessionStorage.getItem("phoneNumber"));
 
     if (responseData.data) {
       dispatch(setShowModal("verify-code"));

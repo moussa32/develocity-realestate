@@ -12,7 +12,7 @@ const Search = () => {
   const [realstates, setRealstates] = useState([]);
 
   useEffect(() => {
-    authentcatedInstance.get("/realstates").then((res) => {
+    authentcatedInstance.get("/search_filters").then((res) => {
       const { data } = res.data;
       const { realstates } = data;
       setRealstates(realstates);
